@@ -1,1 +1,7 @@
 mcp
+pymupdf
+easyocr
+pillow
+chromadb
+sentence-transformers
+numpy

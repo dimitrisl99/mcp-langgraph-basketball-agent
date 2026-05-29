@@ -14,13 +14,15 @@ __pycache__/
 
 # Database
 *.db
+data/processed/
 
 # Logs
 *.log
 
-# Chroma
+# Vector DB / generated index
 chroma/
-db/
+db/chroma/
+data/ocr_cache/
 
 # OS
 .DS_Store
