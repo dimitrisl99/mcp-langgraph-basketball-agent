@@ -5,3 +5,4 @@ pillow
 chromadb
 sentence-transformers
 numpy
+scikit-learn
