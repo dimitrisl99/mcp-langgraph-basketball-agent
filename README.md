@@ -1,118 +1,141 @@
-MCP Basketball Assistant 🏀
+# MCP Basketball Assistant 🏀
 
 An AI-powered Basketball Assistant built with MCP (Model Context Protocol), LangGraph, RAG, OCR, and Text-to-SQL.
 
 The goal of this project is to explore modern AI agent architectures by combining:
 
-MCP tools
-LangGraph agents
-Retrieval-Augmented Generation (RAG)
-OCR document processing
-Vector databases
-Text-to-SQL workflows
-Project Overview
+- MCP tools
+- LangGraph agents
+- Retrieval-Augmented Generation (RAG)
+- OCR document processing
+- Vector databases
+- Text-to-SQL workflows
+
+---
+
+## Project Overview
 
 The assistant can answer questions about basketball systems, offensive concepts, defensive schemes, and player statistics.
 
-Examples:
+### Example Questions
 
-What is a Spain Pick & Roll?
-How does the 5-Out Motion Offense work?
-What are the key principles of the Flex Offense?
-Which player has the most assists this season?
-Which offensive system best fits a specific player profile?
-Architecture
+- What is a Spain Pick & Roll?
+- How does the 5-Out Motion Offense work?
+- What are the key principles of the Flex Offense?
+- Which player has the most assists this season?
+- Which offensive system best fits a specific player profile?
 
+---
+
+## Architecture
+
+```text
 User Question
+      │
+      ▼
+ LangGraph Agent
+      │
+      ▼
+     Router
+      │
+ ┌────┼────┐
+ ▼    ▼    ▼
+RAG  SQL  Future MCP Tools
+      │
+      ▼
+ Final Response
+```
 
-↓
+---
 
-LangGraph Agent
+## Current Features
 
-↓
+### OCR Pipeline
 
-Router
+- PDF ingestion
+- Page rendering with PyMuPDF
+- OCR extraction with EasyOCR
+- Structured document metadata
 
-├── RAG Tool (Playbooks & Coaching Documents)
+### Semantic Chunking
 
-├── NBA Statistics Tool (Text-to-SQL)
+- Sentence embeddings using Sentence Transformers
+- Similarity-based chunk creation
+- Chunk metadata preservation
 
-└── Future MCP Tools
+---
 
-↓
+## Project Structure
 
-Final Response
-
-Current Features
-OCR Pipeline
-PDF ingestion
-Page rendering with PyMuPDF
-OCR extraction with EasyOCR
-Structured document metadata
-Semantic Chunking
-Sentence embeddings using Sentence Transformers
-Similarity-based chunk creation
-Chunk metadata preservation
-Project Structure
+```text
 mcp-basketball-assistant/
 
 ├── app/
+│   ├── graph/
 │   ├── mcp/
 │   ├── rag/
-│   ├── sql/
-│   └── graph/
+│   └── sql/
 │
 ├── data/
 │   ├── playbooks/
 │   └── processed/
 │
-└── README.md
-Technologies
-Python
-MCP (Model Context Protocol)
-LangGraph
-EasyOCR
-PyMuPDF
-Sentence Transformers
-ChromaDB
-SQLite
-Roadmap
-Phase 1
+├── README.md
+└── requirements.txt
+```
 
-MCP Introduction
+---
 
-Project Setup
+## Technologies
 
-OCR Pipeline
+- Python
+- MCP (Model Context Protocol)
+- LangGraph
+- EasyOCR
+- PyMuPDF
+- Sentence Transformers
+- ChromaDB
+- SQLite
 
-Semantic Chunking
+---
 
-Phase 2
+## Development Progress
 
-Embeddings Generation
+### Phase 1
 
-Chroma Vector Database
+- [x] Project Setup
+- [x] MCP Introduction
+- [x] OCR Pipeline
+- [x] Semantic Chunking
 
-Retriever
+### Phase 2
 
-Phase 3
+- [ ] Embeddings Generation
+- [ ] Chroma Vector Database
+- [ ] Retriever
 
-MCP RAG Tool
+### Phase 3
 
-NBA Statistics Database
+- [ ] MCP RAG Tool
+- [ ] NBA Statistics Database
+- [ ] Text-to-SQL
 
-Text-to-SQL
+### Phase 4
 
-Phase 4
+- [ ] LangGraph Agent
+- [ ] Multi-Tool Routing
+- [ ] End-to-End Basketball Assistant
 
-LangGraph Agent
+---
 
-Multi-tool Routing
+## Current Status
 
-End-to-End Basketball Assistant
+🚧 Work in Progress
 
-Status
+The project currently includes:
 
-Work in Progress 🚧
+- OCR-based PDF processing
+- Semantic chunking pipeline
+- Basketball playbook knowledge base
 
-Currently implementing the RAG pipeline before integrating MCP tools and LangGraph routing.
+Next steps include embeddings generation, vector search, and MCP tool integration.
