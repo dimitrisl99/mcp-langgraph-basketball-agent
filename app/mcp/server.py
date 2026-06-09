@@ -1,4 +1,12 @@
+import sys
+from pathlib import Path
+
 from mcp.server.fastmcp import FastMCP #FastMCP --> easy way to create MCP server
+
+PROJECT_ROOT = Path(__file__).parents[2] #πρόσβαση στο root του project
+sys.path.append(str(PROJECT_ROOT))
+
+from app.rag.retriever import search_playbooks #import retriever
 
 # Create the MCP Server
 mcp = FastMCP("MCP RAG SQL Chatbot Server") # " " the name of the server
@@ -47,6 +55,38 @@ def get_company_info(topic: str) -> str: # Παίρνει string και επισ
         "Δοκίμασε ένα από τα: products, customers, faq."
     )
 
+#κάνουμε αυτή την function διαθέσιμη ως MCP tool
+#Πλέον ο MCP agent θα μπορεί να καλέσει search_basketball_playbooks
+@mcp.tool()
+def search_basketball_playbooks(query: str, top_k: int = 5) -> str:
+    """
+    Searches basketball playbooks using the RAG retriever.
+
+    Args:
+        query: The user's basketball systems question.
+        top_k: Number of relevant chunks to retrieve.
+
+    Returns:
+        A formatted text response with relevant playbook chunks and sources.
+    """
+
+    results = search_playbooks(query=query, top_k=top_k) #καλούμε rag retriever
+
+    if not results:
+        return "Δεν βρέθηκαν σχετικά αποτελέσματα στα playbooks."
+
+    response_parts = []
+
+    for index, result in enumerate(results, start=1):
+        response_parts.append(
+            f"Result {index}\n"
+            f"Source: {result['source']}\n"
+            f"Page: {result['page']}\n"
+            f"Chunk: {result['chunk_index']}\n"
+            f"Text:\n{result['text']}\n"
+        )
+
+    return "\n---\n".join(response_parts) #επιστρέφουμε το formatted text
 
 #Αν τρέχω αυτό το αρχείο απευθείας, τότε κάνε το παρακάτω :
 if __name__ == "__main__":
