@@ -27,9 +27,12 @@ async def main():
             print("Available tools:")
             print(tools)
 
-            result = await session.call_tool( #εδώ καλούμε το tool (τρέξε το company_info με topic = products)
-                "get_company_info",
-                arguments={"topic": "products"},
+            result = await session.call_tool(
+                "search_basketball_playbooks",
+                arguments={
+                    "query": "How does Spain Pick and Roll work?",
+                    "top_k": 5,
+                },
             )
 
             print("\nTool result:")
