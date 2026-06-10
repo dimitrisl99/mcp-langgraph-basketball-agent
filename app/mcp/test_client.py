@@ -28,9 +28,9 @@ async def main():
             print(tools)
 
             result = await session.call_tool(
-                "search_basketball_playbooks",
+                "answer_basketball_question",
                 arguments={
-                    "query": "How does Spain Pick and Roll work?",
+                    "question": "How does Spain Pick and Roll work?",
                     "top_k": 5,
                 },
             )
