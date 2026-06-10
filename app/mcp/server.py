@@ -8,6 +8,8 @@ sys.path.append(str(PROJECT_ROOT))
 
 from app.rag.retriever import search_playbooks #import retriever
 
+from app.rag.answer_generator import generate_basketball_answer
+
 # Create the MCP Server
 mcp = FastMCP("MCP RAG SQL Chatbot Server") # " " the name of the server
 
@@ -87,6 +89,26 @@ def search_basketball_playbooks(query: str, top_k: int = 5) -> str:
         )
 
     return "\n---\n".join(response_parts) #επιστρέφουμε το formatted text
+
+@mcp.tool()
+def answer_basketball_question(question: str, top_k: int = 5) -> str:
+    """
+    Answers a basketball systems question using RAG + local Ollama model.
+
+    Args:
+        question: The user's basketball question.
+        top_k: Number of retrieved chunks to use.
+
+    Returns:
+        A grounded answer based on the basketball playbooks.
+    """
+
+    answer = generate_basketball_answer(
+        question=question,
+        top_k=top_k,
+    )
+
+    return answer
 
 #Αν τρέχω αυτό το αρχείο απευθείας, τότε κάνε το παρακάτω :
 if __name__ == "__main__":
