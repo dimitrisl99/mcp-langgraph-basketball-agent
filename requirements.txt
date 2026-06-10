@@ -6,3 +6,4 @@ chromadb
 sentence-transformers
 numpy
 scikit-learn
+ollama
