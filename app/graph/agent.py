@@ -71,6 +71,7 @@ def rag_node(state: AgentState) -> AgentState:
         top_k=5,
     )
 
+    state["route"] = "RAG"
     state["answer"] = answer
     return state
 
@@ -80,6 +81,7 @@ def sql_node(state: AgentState) -> AgentState:
 
     answer = answer_sql_question(question)
 
+    state["route"] = "SQL"
     state["answer"] = answer
     return state
 
@@ -116,6 +118,7 @@ def build_graph():
 
 
 def run_agent(question: str) -> str:
+
     app = build_graph()
 
     initial_state = {
@@ -126,7 +129,15 @@ def run_agent(question: str) -> str:
 
     final_state = app.invoke(initial_state)
 
-    return final_state["answer"]
+    route = final_state["route"]
+    answer = final_state["answer"]
+
+    return (
+        f"====================\n"
+        f"ROUTE: {route}\n"
+        f"====================\n\n"
+        f"{answer}"
+    )
 
 
 if __name__ == "__main__":
