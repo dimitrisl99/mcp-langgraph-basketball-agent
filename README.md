@@ -2,15 +2,7 @@
 
 An AI-powered Basketball Assistant built with MCP (Model Context Protocol), LangGraph, RAG, OCR, and Text-to-SQL.
 
-The goal of this project is to explore modern AI agent architectures by combining:
-
-- MCP tools
-- LangGraph agents
-- Retrieval-Augmented Generation (RAG)
-- OCR document processing
-- Vector databases
-- Text-to-SQL workflows
-- Local LLM inference with Ollama
+The project demonstrates how modern AI agents can combine unstructured knowledge retrieval and structured database querying within a single architecture.
 
 ---
 
@@ -21,28 +13,38 @@ This project was created as a hands-on learning experience focused on:
 - Understanding MCP architecture
 - Building custom MCP tools
 - Creating a complete RAG pipeline from scratch
-- Learning semantic search and vector databases
-- Implementing local LLM inference
-- Combining RAG and Text-to-SQL in a single agent
+- Implementing OCR-based document processing
+- Building vector databases and semantic search systems
+- Implementing local LLM inference with Ollama
+- Creating Text-to-SQL pipelines
 - Building LangGraph-based multi-tool agents
+- Combining RAG and SQL workflows into a single AI assistant
 
 ---
 
 ## Project Overview
 
-The assistant can answer questions about basketball systems, offensive concepts, defensive schemes, and player statistics.
+The assistant can answer questions about:
 
-### Example Questions
+### Basketball Systems & Playbooks
 
 - What is a Spain Pick & Roll?
 - How does the 5-Out Motion Offense work?
-- What are the key principles of the Flex Offense?
-- Which player has the most assists this season?
-- Which offensive system best fits a specific player profile?
+- What are the principles of the Flex Offense?
+- Explain the Davidson Motion Offense.
+
+### NBA Statistics
+
+- Who leads the league in assists?
+- Which players average over 25 points per game?
+- Who has the highest FG% this season?
+- Compare Nikola Jokic and Luka Doncic.
 
 ---
 
 ## Current Architecture
+
+### RAG Pipeline
 
 ```text
 Basketball PDFs
@@ -67,7 +69,45 @@ Semantic Chunking
         │
         ▼
    MCP Tool
+```
+
+### SQL Pipeline
+
+```text
+User Question
         │
+        ▼
+     Qwen3
+        │
+        ▼
+   Text-to-SQL
+        │
+        ▼
+ SQLite Database
+        │
+        ▼
+    Results
+        │
+        ▼
+   MCP Tool
+```
+
+### Agent Architecture
+
+```text
+User Question
+        │
+        ▼
+  LangGraph Router
+        │
+   ┌────┴────┐
+   ▼         ▼
+  RAG       SQL
+   │         │
+   ▼         ▼
+ MCP Tool  MCP Tool
+   │         │
+   └────┬────┘
         ▼
  Final Answer
 ```
@@ -79,31 +119,31 @@ Semantic Chunking
 ### OCR Pipeline
 
 - PDF ingestion
-- Page rendering with PyMuPDF
-- OCR extraction with EasyOCR
+- PyMuPDF page rendering
+- EasyOCR extraction
 - GPU acceleration support
 - Structured document metadata
 
 ### Semantic Chunking
 
-- Sentence-level semantic splitting
-- Similarity-based chunk creation
+- Semantic document splitting
+- Sentence-transformer embeddings
 - Metadata preservation
-- Chunk merging for improved retrieval quality
+- Chunk merging
 
 ### Vector Database
 
-- BGE embeddings
 - ChromaDB persistence
+- BGE embeddings
 - Metadata-aware storage
 - Semantic similarity search
 
 ### Retrieval Pipeline
 
 - Top-K retrieval
-- Basketball playbook search
 - Source tracking
 - Page-level citations
+- Basketball playbook search
 
 ### Answer Generation
 
@@ -112,12 +152,27 @@ Semantic Chunking
 - Context-grounded responses
 - Source-aware prompting
 
+### SQL Pipeline
+
+- NBA statistics database
+- SQLite storage
+- Safe SQL execution
+- Text-to-SQL generation
+- SQL validation layer
+
 ### MCP Integration
 
-- MCP server
-- MCP client
-- Playbook search tool
-- Basketball question answering tool
+- MCP Server
+- MCP Client
+- Basketball RAG Tool
+- NBA Statistics Tool
+
+### LangGraph Agent
+
+- Multi-tool routing
+- RAG vs SQL classification
+- Dynamic tool selection
+- End-to-end agent workflow
 
 ---
 
@@ -129,6 +184,8 @@ mcp-basketball-assistant/
 ├── app/
 │
 │   ├── graph/
+│   │   ├── agent.py
+│   │   └── mcp_client.py
 │   │
 │   ├── mcp/
 │   │   ├── server.py
@@ -142,11 +199,16 @@ mcp-basketball-assistant/
 │   │   └── answer_generator.py
 │   │
 │   └── sql/
+│       ├── build_nba_db.py
+│       ├── inspect_db.py
+│       ├── sql_executor.py
+│       └── text_to_sql.py
 │
 ├── data/
 │   ├── playbooks/
 │   ├── processed/
-│   └── chroma/
+│   ├── chroma/
+│   └── nba_stats.db
 │
 ├── README.md
 └── requirements.txt
@@ -167,6 +229,8 @@ mcp-basketball-assistant/
 - Ollama
 - Qwen3:8B
 - SQLite
+- Pandas
+- nba_api
 
 ---
 
@@ -175,7 +239,6 @@ mcp-basketball-assistant/
 ### Phase 1 — Data Processing
 
 - [x] Project Setup
-- [x] MCP Introduction
 - [x] OCR Pipeline
 - [x] Semantic Chunking
 
@@ -188,21 +251,31 @@ mcp-basketball-assistant/
 ### Phase 3 — RAG System
 
 - [x] Answer Generator
-- [x] Local LLM Integration (Qwen3)
+- [x] Local LLM Integration
 - [x] MCP RAG Tool
 
 ### Phase 4 — Structured Data
 
-- [ ] NBA Statistics Database
-- [ ] SQLite Integration
-- [ ] Text-to-SQL Tool
+- [x] NBA Statistics Database
+- [x] SQLite Integration
+- [x] SQL Executor
+- [x] Text-to-SQL Tool
+- [x] MCP SQL Tool
 
 ### Phase 5 — Agent Architecture
 
-- [ ] LangGraph Agent
-- [ ] Multi-Tool Routing
-- [ ] RAG + SQL Integration
-- [ ] End-to-End Basketball Assistant
+- [x] LangGraph Agent
+- [x] Multi-Tool Routing
+- [x] RAG + SQL Integration
+
+### Phase 6 — Next Steps
+
+- [ ] Conversation Memory
+- [ ] Query Rewriting
+- [ ] Multi-turn Conversations
+- [ ] Streamlit Chat Interface
+- [ ] Agent Observability
+- [ ] Evaluation Framework
 
 ---
 
@@ -218,9 +291,12 @@ Implemented:
 - Chroma vector database
 - Semantic retrieval
 - Local RAG pipeline
-- MCP server integration
-- Basketball playbook question answering
+- NBA statistics database
+- Text-to-SQL pipeline
+- MCP server and tools
+- LangGraph routing agent
+- End-to-end RAG + SQL architecture
 
 Next milestone:
 
-➡ NBA Statistics Database + Text-to-SQL MCP Tool
+➡ Conversation Memory & Follow-up Question Handling
