@@ -7,3 +7,6 @@ sentence-transformers
 numpy
 scikit-learn
 ollama
+pandas
+nba_api
+
