@@ -14,8 +14,7 @@ from typing import TypedDict, Literal
 import ollama
 from langgraph.graph import StateGraph, END
 
-from app.rag.answer_generator import generate_basketball_answer
-from app.sql.text_to_sql import answer_sql_question
+from app.graph.mcp_client import call_mcp_tool
 
 
 OLLAMA_MODEL = "qwen3:8b"
@@ -66,23 +65,33 @@ Question:
 def rag_node(state: AgentState) -> AgentState:
     question = state["question"]
 
-    answer = generate_basketball_answer(
-        question=question,
-        top_k=5,
+    answer = call_mcp_tool(
+        tool_name="answer_basketball_question",
+        arguments={
+            "question": question,
+            "top_k": 5,
+        },
     )
 
     state["route"] = "RAG"
     state["answer"] = answer
+
     return state
 
 
 def sql_node(state: AgentState) -> AgentState:
     question = state["question"]
 
-    answer = answer_sql_question(question)
+    answer = call_mcp_tool(
+        tool_name="answer_nba_stats_question",
+        arguments={
+            "question": question,
+        },
+    )
 
     state["route"] = "SQL"
     state["answer"] = answer
+
     return state
 
 
