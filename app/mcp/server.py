@@ -10,6 +10,8 @@ from app.rag.retriever import search_playbooks #import retriever
 
 from app.rag.answer_generator import generate_basketball_answer
 
+from app.sql.text_to_sql import answer_sql_question #import text-to-sql
+
 # Create the MCP Server
 mcp = FastMCP("MCP RAG SQL Chatbot Server") # " " the name of the server
 
@@ -90,6 +92,7 @@ def search_basketball_playbooks(query: str, top_k: int = 5) -> str:
 
     return "\n---\n".join(response_parts) #επιστρέφουμε το formatted text
 
+#rag tool
 @mcp.tool()
 def answer_basketball_question(question: str, top_k: int = 5) -> str:
     """
@@ -107,6 +110,23 @@ def answer_basketball_question(question: str, top_k: int = 5) -> str:
         question=question,
         top_k=top_k,
     )
+
+    return answer
+
+#text-to-sql tool
+@mcp.tool()
+def answer_nba_stats_question(question: str) -> str:
+    """
+    Answers NBA statistics questions using Text-to-SQL over the local SQLite database.
+
+    Args:
+        question: The user's NBA statistics question.
+
+    Returns:
+        A SQL-backed answer with the generated query and results.
+    """
+
+    answer = answer_sql_question(question)
 
     return answer
 
