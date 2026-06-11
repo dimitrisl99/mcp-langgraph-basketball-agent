@@ -9,4 +9,4 @@ scikit-learn
 ollama
 pandas
 nba_api
-
+langgraph
