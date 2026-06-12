@@ -124,3 +124,14 @@ def delete_conversation(conversation_id: str) -> list[dict]:
     save_conversations(conversations)
 
     return conversations
+
+def rename_conversation(conversation_id: str, new_title: str) -> None:
+    conversations = load_conversations()
+
+    for conversation in conversations:
+        if conversation["id"] == conversation_id:
+            conversation["title"] = new_title.strip() or "New Chat"
+            conversation["updated_at"] = datetime.now().isoformat(timespec="seconds")
+            break
+
+    save_conversations(conversations)

@@ -15,6 +15,7 @@ from app.ui.conversation_manager import (
     get_conversation_by_id,
     update_conversation,
     delete_conversation,
+    rename_conversation,
 )
 
 
@@ -140,6 +141,25 @@ with st.sidebar:
 
         st.rerun()
 
+    current_conversation = get_conversation_by_id(
+        st.session_state.current_conversation_id
+    )
+
+    current_title = current_conversation["title"] if current_conversation else "New Chat"
+
+    new_title = st.text_input(
+        "Rename current chat",
+        value=current_title,
+        key=f"rename_{st.session_state.current_conversation_id}",
+    )
+
+    if st.button("💾 Save Title"):
+        rename_conversation(
+            conversation_id=st.session_state.current_conversation_id,
+            new_title=new_title,
+        )
+        st.rerun()
+
     st.divider()
 
     st.header("Agent Observability")
@@ -159,6 +179,32 @@ with st.sidebar:
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+
+        sources = message.get("sources", [])
+
+        if sources:
+            with st.expander("📚 Sources"):
+                for index, source in enumerate(sources, start=1):
+                    st.markdown(f"### {source['label']}")
+                    st.markdown(f"**File:** {source['file']}")
+                    st.markdown(f"**Page:** {source['page']}")
+
+                    pdf_path = Path(source["file_path"])
+
+                    if pdf_path.exists():
+                        with pdf_path.open("rb") as pdf_file:
+                            st.download_button(
+                                label=f"📄 Open / Download {source['file']}",
+                                data=pdf_file,
+                                file_name=source["file"],
+                                mime="application/pdf",
+                                key=f"history_download_{index}_{source['file']}_{source['page']}",
+                            )
+
+                    with st.expander("Retrieved text preview"):
+                        st.write(source["text"])
+
+                    st.divider()
 
 #====================================
 # Suggested Questions
@@ -282,6 +328,7 @@ if prompt:
         {
             "role": "assistant",
             "content": answer,
+            "sources": sources,
         }
     )
 
