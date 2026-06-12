@@ -28,6 +28,16 @@ Ask questions about:
 )
 
 # ==========================
+# Session State Initialization
+# ==========================
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+# ==========================
 # Sidebar
 # ==========================
 
@@ -40,15 +50,21 @@ with st.sidebar:
         st.session_state.chat_history = []
         st.rerun()
 
-#====================================
-# Session State Initialization
-#====================================
+    st.divider()
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.header("Chat History")
 
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+    if st.session_state.messages:
+        user_messages = [
+            message["content"]
+            for message in st.session_state.messages
+            if message["role"] == "user"
+        ]
+
+        for index, user_message in enumerate(user_messages, start=1):
+            st.markdown(f"**{index}.** {user_message}")
+    else:
+        st.caption("No messages yet.")
 
 #====================================
 # Display Previous Messages
