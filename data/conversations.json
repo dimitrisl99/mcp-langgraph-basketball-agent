@@ -1,0 +1,114 @@
+[
+  {
+    "id": "8bf5c39f-549c-4414-bd03-671bd934f8be",
+    "title": "Who has the most assists?",
+    "created_at": "2026-06-12T15:54:08",
+    "updated_at": "2026-06-12T15:55:44",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Who has the most assists?"
+      },
+      {
+        "role": "assistant",
+        "content": "SQL query:\nSELECT PLAYER_NAME FROM player_stats ORDER BY AST DESC LIMIT 1;\n\nResult:\nPLAYER_NAME\n Trae Young"
+      },
+      {
+        "role": "user",
+        "content": "And the best 3 point percent ? "
+      },
+      {
+        "role": "assistant",
+        "content": "SQL query:\nSELECT PLAYER_NAME FROM player_stats ORDER BY FG3_PCT DESC LIMIT 1;\n\nResult:\n     PLAYER_NAME\nAlondes Williams"
+      }
+    ],
+    "chat_history": [
+      {
+        "role": "user",
+        "content": "Who has the most assists?"
+      },
+      {
+        "role": "assistant",
+        "content": "SQL query:\nSELECT PLAYER_NAME FROM player_stats ORDER BY AST DESC LIMIT 1;\n\nResult:\nPLAYER_NAME\n Trae Young"
+      },
+      {
+        "role": "user",
+        "content": "And the best 3 point percent ? "
+      },
+      {
+        "role": "assistant",
+        "content": "SQL query:\nSELECT PLAYER_NAME FROM player_stats ORDER BY FG3_PCT DESC LIMIT 1;\n\nResult:\n     PLAYER_NAME\nAlondes Williams"
+      }
+    ],
+    "last_agent_info": {
+      "route": "SQL",
+      "standalone_question": "Which player has the highest 3-point shooting percentage?",
+      "sources_count": 0,
+      "model": "qwen3:8b"
+    }
+  },
+  {
+    "id": "c137dbef-7e0f-4480-9831-e603970beee6",
+    "title": "How does Spain Pick and Roll work?",
+    "created_at": "2026-06-12T15:48:52",
+    "updated_at": "2026-06-12T15:52:48",
+    "messages": [
+      {
+        "role": "user",
+        "content": "How does Spain Pick and Roll work?"
+      },
+      {
+        "role": "assistant",
+        "content": "The Spain Pick and Roll (PNR) is designed to maximize spacing and involve multiple perimeter players. Here's how it works based on the playbook context:  \n\n1. **Role Distribution**:  \n   - **Driver (off the pick)**: Accounts for 20% of the plays.  \n   - **Roller/Popper**: Also 20%.  \n   - **Other perimeter players**: 60% of the action, as they react to defensive tags and rotations. This shift reflects a modern emphasis on involving teammates beyond just the initial driver and roller.  \n\n2. **Key Mechanics**:  \n   - The ball handler pauses (hesitates) or uses a \"KOB\" (possibly a typo for \"Kobe\" or a specific move) to create time for the back-screen.  \n   - The concept originated from a defensive situation where the 5-man got stuck, leading to a focus on creating space for the driver and roller.  \n   - Players are encouraged to \"reject\" (possibly a term for attacking space) while managing the back-screen and exploiting gaps.  \n\n3. **Defensive Strategy**:  \n   - The Spain PNR aims to counter defensive containment by using quick reads and rotations. The playbook highlights the importance of space and timing to get downhill (toward the basket).  \n\nThe playbook emphasizes adaptability, with the driver and roller often needing to adjust based on defensive reactions. For detailed diagrams or footwork, refer to the full playbook (sources 1–5). Let me know if you need further clarification!"
+      },
+      {
+        "role": "user",
+        "content": "What are its advantages?"
+      },
+      {
+        "role": "assistant",
+        "content": "The Spain Pick and Roll (PNR) is designed to create high-percentage scoring opportunities by leveraging spacing, defensive rotations, and quick decision-making. Key advantages include:  \n\n1. **Exploiting Defensive Tags and Rotations**: The play emphasizes identifying and capitalizing on defensive help efforts. When a defender tags the roller or driver, the other perimeter players (who make up 60% of the scoring opportunities) can react to the rotation, creating open shots or driving lanes.  \n\n2. **Creating Space for the Driver and Roller**: By pausing (hesitating) or using a quick off-ball move (KOB), the ball handler buys time to read the defense and create space for themselves or the roller. This makes it harder for defenders to contain both players simultaneously.  \n\n3. **Involving Multiple Shooters**: The Spain PNR is not reliant on just the driver or roller. Instead, it opens up opportunities for three perimeter players to attack based on how the defense reacts, increasing the chances of a high-percentage shot.  \n\n4. **Quick Transition and Rejection**: The play allows for rapid downhill movement after the back-screen, enabling players to attack the rim or kick out to open shooters before the defense can fully recover.  \n\nThis strategy maximizes scoring efficiency by forcing defenders into difficult decisions and creating mismatches through deliberate spacing and timing."
+      },
+      {
+        "role": "user",
+        "content": "Which players benefit the most from this system?"
+      },
+      {
+        "role": "assistant",
+        "content": "The Spain Pick and Roll system benefits players who can create space, read defensive rotations, and exploit gaps in coverage. Key players include:  \n\n1. **The Driver (typically #4 or #2):** This player is responsible for initiating the play by driving to the basket after the pick. The system emphasizes creating time and space for the driver to attack, often using hesitation or a quick burst to get downhill.  \n\n2. **The Roller/Popper (typically #2 or #5):** This player rolls toward the basket after the pick, forcing the defense to choose between helping the driver or guarding the roller. If the roller is a strong finisher, they can capitalize on the mismatch.  \n\n3. **Perimeter Reactors (typically #1, #4, or #5):** The system is designed to maximize opportunities for the other three perimeter players to react to defensive tags and rotations. These players often flare to the corners, cut to the basket, or use backscreens to create mismatches. For example:  \n   - **#1** can flare to the corner to create space for a pass or cut to the basket.  \n   - **#4** is often the primary ball-handler, using their driving ability to attack or kick out to open shooters.  \n   - **#5** may act as a screen-setter or rebounder, supporting the play’s execution.  \n\nThe system prioritizes flexibility, allowing the best players (typically #1, #2, and #4) to dominate based on their strengths—whether driving, finishing, or creating space for teammates. Player #5 often supports by positioning for rebounds or screens, but the primary beneficiaries are the perimeter players who can adapt to defensive pressure."
+      }
+    ],
+    "chat_history": [
+      {
+        "role": "user",
+        "content": "How does Spain Pick and Roll work?"
+      },
+      {
+        "role": "assistant",
+        "content": "The Spain Pick and Roll (PNR) is designed to maximize spacing and involve multiple perimeter players. Here's how it works based on the playbook context:  \n\n1. **Role Distribution**:  \n   - **Driver (off the pick)**: Accounts for 20% of the plays.  \n   - **Roller/Popper**: Also 20%.  \n   - **Other perimeter players**: 60% of the action, as they react to defensive tags and rotations. This shift reflects a modern emphasis on involving teammates beyond just the initial driver and roller.  \n\n2. **Key Mechanics**:  \n   - The ball handler pauses (hesitates) or uses a \"KOB\" (possibly a typo for \"Kobe\" or a specific move) to create time for the back-screen.  \n   - The concept originated from a defensive situation where the 5-man got stuck, leading to a focus on creating space for the driver and roller.  \n   - Players are encouraged to \"reject\" (possibly a term for attacking space) while managing the back-screen and exploiting gaps.  \n\n3. **Defensive Strategy**:  \n   - The Spain PNR aims to counter defensive containment by using quick reads and rotations. The playbook highlights the importance of space and timing to get downhill (toward the basket).  \n\nThe playbook emphasizes adaptability, with the driver and roller often needing to adjust based on defensive reactions. For detailed diagrams or footwork, refer to the full playbook (sources 1–5). Let me know if you need further clarification!"
+      },
+      {
+        "role": "user",
+        "content": "What are its advantages?"
+      },
+      {
+        "role": "assistant",
+        "content": "The Spain Pick and Roll (PNR) is designed to create high-percentage scoring opportunities by leveraging spacing, defensive rotations, and quick decision-making. Key advantages include:  \n\n1. **Exploiting Defensive Tags and Rotations**: The play emphasizes identifying and capitalizing on defensive help efforts. When a defender tags the roller or driver, the other perimeter players (who make up 60% of the scoring opportunities) can react to the rotation, creating open shots or driving lanes.  \n\n2. **Creating Space for the Driver and Roller**: By pausing (hesitating) or using a quick off-ball move (KOB), the ball handler buys time to read the defense and create space for themselves or the roller. This makes it harder for defenders to contain both players simultaneously.  \n\n3. **Involving Multiple Shooters**: The Spain PNR is not reliant on just the driver or roller. Instead, it opens up opportunities for three perimeter players to attack based on how the defense reacts, increasing the chances of a high-percentage shot.  \n\n4. **Quick Transition and Rejection**: The play allows for rapid downhill movement after the back-screen, enabling players to attack the rim or kick out to open shooters before the defense can fully recover.  \n\nThis strategy maximizes scoring efficiency by forcing defenders into difficult decisions and creating mismatches through deliberate spacing and timing."
+      },
+      {
+        "role": "user",
+        "content": "Which players benefit the most from this system?"
+      },
+      {
+        "role": "assistant",
+        "content": "The Spain Pick and Roll system benefits players who can create space, read defensive rotations, and exploit gaps in coverage. Key players include:  \n\n1. **The Driver (typically #4 or #2):** This player is responsible for initiating the play by driving to the basket after the pick. The system emphasizes creating time and space for the driver to attack, often using hesitation or a quick burst to get downhill.  \n\n2. **The Roller/Popper (typically #2 or #5):** This player rolls toward the basket after the pick, forcing the defense to choose between helping the driver or guarding the roller. If the roller is a strong finisher, they can capitalize on the mismatch.  \n\n3. **Perimeter Reactors (typically #1, #4, or #5):** The system is designed to maximize opportunities for the other three perimeter players to react to defensive tags and rotations. These players often flare to the corners, cut to the basket, or use backscreens to create mismatches. For example:  \n   - **#1** can flare to the corner to create space for a pass or cut to the basket.  \n   - **#4** is often the primary ball-handler, using their driving ability to attack or kick out to open shooters.  \n   - **#5** may act as a screen-setter or rebounder, supporting the play’s execution.  \n\nThe system prioritizes flexibility, allowing the best players (typically #1, #2, and #4) to dominate based on their strengths—whether driving, finishing, or creating space for teammates. Player #5 often supports by positioning for rebounds or screens, but the primary beneficiaries are the perimeter players who can adapt to defensive pressure."
+      }
+    ],
+    "last_agent_info": {
+      "route": "RAG",
+      "standalone_question": "Which players benefit the most from the Spain Pick and Roll system?",
+      "sources_count": 5,
+      "model": "qwen3:8b"
+    }
+  }
+]

@@ -8,6 +8,13 @@ import streamlit as st
 
 from app.graph.agent import run_agent
 
+from app.ui.conversation_manager import (
+    load_conversations,
+    add_new_conversation,
+    get_conversation_by_id,
+    update_conversation,
+)
+
 
 st.set_page_config(
     page_title="MCP Basketball Assistant",
@@ -45,34 +52,73 @@ if "last_agent_info" not in st.session_state:
         "model": "qwen3:8b",
     }
 
+if "conversations" not in st.session_state:
+    st.session_state.conversations = load_conversations()
+
+if not st.session_state.conversations:
+    first_conversation = add_new_conversation()
+    st.session_state.conversations = load_conversations()
+    st.session_state.current_conversation_id = first_conversation["id"]
+
+if "current_conversation_id" not in st.session_state:
+    st.session_state.current_conversation_id = st.session_state.conversations[0]["id"]
+
+current_conversation = get_conversation_by_id(
+    st.session_state.current_conversation_id
+)
+
+if current_conversation:
+    st.session_state.messages = current_conversation["messages"]
+    st.session_state.chat_history = current_conversation["chat_history"]
+    st.session_state.last_agent_info = current_conversation["last_agent_info"]
+
 # ==========================
 # Sidebar
 # ==========================
 
 with st.sidebar:
 
-    st.header("Settings")
+    st.header("Conversations")
 
-    if st.button("🗑️ Clear Chat"):
-        st.session_state.messages = []
-        st.session_state.chat_history = []
+    if st.button("➕ New Chat"):
+        new_conversation = add_new_conversation()
+        st.session_state.current_conversation_id = new_conversation["id"]
         st.rerun()
 
     st.divider()
 
-    st.header("Chat History")
+    conversations = load_conversations()
 
-    if st.session_state.messages:
-        user_messages = [
-            message["content"]
-            for message in st.session_state.messages
-            if message["role"] == "user"
-        ]
+    for conversation in conversations:
+        is_current = conversation["id"] == st.session_state.current_conversation_id
+        label = f"✅ {conversation['title']}" if is_current else conversation["title"]
 
-        for index, user_message in enumerate(user_messages, start=1):
-            st.markdown(f"**{index}.** {user_message}")
-    else:
-        st.caption("No messages yet.")
+        if st.button(label, key=f"conversation_{conversation['id']}"):
+            st.session_state.current_conversation_id = conversation["id"]
+            st.rerun()
+
+    st.divider()
+
+    st.header("Settings")
+
+    if st.button("🗑️ Clear Current Chat"):
+        st.session_state.messages = []
+        st.session_state.chat_history = []
+        st.session_state.last_agent_info = {
+            "route": "-",
+            "standalone_question": "-",
+            "sources_count": 0,
+            "model": "qwen3:8b",
+        }
+
+        update_conversation(
+            conversation_id=st.session_state.current_conversation_id,
+            messages=st.session_state.messages,
+            chat_history=st.session_state.chat_history,
+            last_agent_info=st.session_state.last_agent_info,
+        )
+
+        st.rerun()
 
     st.divider()
 
@@ -81,7 +127,7 @@ with st.sidebar:
     agent_info = st.session_state.last_agent_info
 
     st.markdown(f"**Route:** `{agent_info['route']}`")
-    st.markdown(f"**Standalone Question:**")
+    st.markdown("**Standalone Question:**")
     st.caption(agent_info["standalone_question"])
     st.markdown(f"**Retrieved Sources:** `{agent_info['sources_count']}`")
     st.markdown(f"**Model:** `{agent_info['model']}`")
@@ -197,4 +243,11 @@ if prompt := st.chat_input("Ask a basketball question..."):
             "role": "assistant",
             "content": answer,
         }
+    )
+
+    update_conversation(
+        conversation_id=st.session_state.current_conversation_id,
+        messages=st.session_state.messages,
+        chat_history=st.session_state.chat_history,
+        last_agent_info=st.session_state.last_agent_info,
     )
