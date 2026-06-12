@@ -91,7 +91,7 @@ SQL:
 
 def answer_sql_question(question: str) -> str:
     """
-    Generates SQL, executes it, and returns a readable result.
+    Generates SQL, executes it, and returns a user-friendly answer.
     """
 
     sql_query = generate_sql(question)
@@ -99,12 +99,40 @@ def answer_sql_question(question: str) -> str:
     result_df = execute_sql_query(sql_query)
 
     if result_df.empty:
-        return f"SQL query:\n{sql_query}\n\nNo results found."
+        return "I could not find matching NBA statistics for this question."
 
-    return (
-        f"SQL query:\n{sql_query}\n\n"
-        f"Result:\n{result_df.to_string(index=False)}"
+    result_text = result_df.to_string(index=False)
+
+    prompt = f"""
+You are an NBA statistics assistant.
+
+The user asked:
+{question}
+
+The SQL query returned this result:
+{result_text}
+
+Write a clear, concise natural language answer for the user.
+
+Rules:
+- Do NOT mention the SQL query.
+- Do NOT say "based on the SQL result".
+- Do NOT include table formatting unless needed.
+- Answer directly.
+- If there are multiple players, list them clearly.
+"""
+
+    response = ollama.chat(
+        model=OLLAMA_MODEL,
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
     )
+
+    return response["message"]["content"].strip()
 
 
 if __name__ == "__main__":
