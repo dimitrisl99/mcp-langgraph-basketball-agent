@@ -3,6 +3,7 @@ LangGraph node --> call_mcp_tool --> MCP server.py --> MCP tool --> RAG ή SQL -
 """
 
 import asyncio
+import json
 from pathlib import Path
 from typing import Any
 
@@ -36,7 +37,12 @@ async def call_mcp_tool_async(
             )
 
             if result.structuredContent and "result" in result.structuredContent:
-                return result.structuredContent["result"]
+                raw_result = result.structuredContent["result"]
+
+                try:
+                    return json.loads(raw_result)
+                except json.JSONDecodeError:
+                    return raw_result
 
             if result.content:
                 return result.content[0].text

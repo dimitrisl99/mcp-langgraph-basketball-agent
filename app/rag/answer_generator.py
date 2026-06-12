@@ -47,8 +47,8 @@ Answer the user's question using ONLY the provided playbook context.
 If the context is not enough, say that the available playbooks do not provide enough evidence.
 
 Write clearly and practically, as if explaining to a coach or player.
-Always include source references like:
-(Source 1, page X)
+Do NOT include source references inside the answer text.
+The source list will be displayed separately by the UI.
 
 User question:
 {question}
@@ -69,7 +69,25 @@ Answer:
         ],
     )
 
-    return response["message"]["content"]
+    answer = response["message"]["content"]
+
+    sources = []
+
+    for index, result in enumerate(retrieved_results, start=1):
+        sources.append(
+            {
+                "label": f"Source {index}",
+                "file": result["source"],
+                "page": result["page"],
+                "chunk_index": result["chunk_index"],
+                "text": result["text"],
+            }
+        )
+
+    return {
+        "answer": answer,
+        "sources": sources,
+    }
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 import sys
+import json
 from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP #FastMCP --> easy way to create MCP server
@@ -106,12 +107,12 @@ def answer_basketball_question(question: str, top_k: int = 5) -> str:
         A grounded answer based on the basketball playbooks.
     """
 
-    answer = generate_basketball_answer(
+    result = generate_basketball_answer(
         question=question,
         top_k=top_k,
     )
 
-    return answer
+    return json.dumps(result, ensure_ascii=False)
 
 #text-to-sql tool
 @mcp.tool()

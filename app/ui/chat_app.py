@@ -106,11 +106,20 @@ if prompt := st.chat_input("Ask a basketball question..."):
             answer = result["answer"]
             route = result["route"]
             standalone_question = result["standalone_question"]
+            sources = result.get("sources", [])
 
             st.caption(f"Route: {route}")
             st.caption(f"Standalone question: {standalone_question}")
 
             st.markdown(answer)
+            if sources:
+                with st.expander("📚 Sources"):
+                    for source in sources:
+                        st.markdown(
+                            f"**{source['label']}** — {source['file']} | Page {source['page']}"
+                        )
+
+                        st.caption(source["text"][:500] + "...")
 
     # save assistant response
 

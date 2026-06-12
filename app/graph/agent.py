@@ -26,6 +26,7 @@ class AgentState(TypedDict):
     chat_history: list[dict]
     route: str
     answer: str
+    sources: list[dict]
 
 
 def format_chat_history(chat_history: list[dict]) -> str:
@@ -134,7 +135,7 @@ Question:
 def rag_node(state: AgentState) -> AgentState:
     question = state["standalone_question"]
 
-    answer = call_mcp_tool(
+    result = call_mcp_tool(
         tool_name="answer_basketball_question",
         arguments={
             "question": question,
@@ -143,13 +144,20 @@ def rag_node(state: AgentState) -> AgentState:
     )
 
     state["route"] = "RAG"
-    state["answer"] = answer
+
+    if isinstance(result, dict):
+        state["answer"] = result["answer"]
+        state["sources"] = result.get("sources", [])
+    else:
+        state["answer"] = result
+        state["sources"] = []
 
     return state
 
 
 def sql_node(state: AgentState) -> AgentState:
     question = state["standalone_question"]
+    state["sources"] = []
 
     answer = call_mcp_tool(
         tool_name="answer_nba_stats_question",
@@ -213,6 +221,7 @@ def run_agent(
         "chat_history": chat_history,
         "route": "",
         "answer": "",
+        "sources": [],
     }
 
     final_state = app.invoke(initial_state)
@@ -222,6 +231,7 @@ def run_agent(
         "standalone_question": final_state["standalone_question"],
         "route": final_state["route"],
         "answer": final_state["answer"],
+        "sources": final_state["sources"],
     }
 
 
