@@ -161,13 +161,38 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 #====================================
+# Suggested Questions
+#====================================
+
+suggested_prompt = None
+
+if not st.session_state.messages:
+    st.markdown("### Try asking:")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        if st.button("🏀 How does Spain Pick and Roll work?"):
+            suggested_prompt = "How does Spain Pick and Roll work?"
+
+    with col2:
+        if st.button("📊 Who has the most assists?"):
+            suggested_prompt = "Who has the most assists?"
+
+    with col3:
+        if st.button("🎯 Who has the best 3-point percentage?"):
+            suggested_prompt = "Who has the best 3-point percentage?"
+
+#====================================
 # User Input
 #====================================
 
-prompt = st.chat_input(
+typed_prompt = st.chat_input(
     "Ask a basketball question...",
     disabled=st.session_state.is_generating,
 )
+
+prompt = suggested_prompt or typed_prompt
 
 if prompt:
 
