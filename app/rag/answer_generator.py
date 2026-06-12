@@ -1,7 +1,7 @@
 import ollama
 
 from app.rag.retriever import search_playbooks
-
+from pathlib import Path
 
 OLLAMA_MODEL = "qwen3:8b"
 
@@ -71,9 +71,14 @@ Answer:
 
     answer = response["message"]["content"]
 
+    project_root = Path(__file__).parents[2]
+    playbooks_dir = project_root / "data" / "playbooks"
+
     sources = []
 
     for index, result in enumerate(retrieved_results, start=1):
+        pdf_path = playbooks_dir / result["source"]
+
         sources.append(
             {
                 "label": f"Source {index}",
@@ -81,6 +86,7 @@ Answer:
                 "page": result["page"],
                 "chunk_index": result["chunk_index"],
                 "text": result["text"],
+                "file_path": str(pdf_path),
             }
         )
 

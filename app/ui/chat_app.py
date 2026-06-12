@@ -114,12 +114,38 @@ if prompt := st.chat_input("Ask a basketball question..."):
             st.markdown(answer)
             if sources:
                 with st.expander("📚 Sources"):
-                    for source in sources:
+                    for index, source in enumerate(sources, start=1):
+
                         st.markdown(
-                            f"**{source['label']}** — {source['file']} | Page {source['page']}"
+                            f"### {source['label']}"
                         )
 
-                        st.caption(source["text"][:500] + "...")
+                        st.markdown(
+                            f"**File:** {source['file']}"
+                        )
+
+                        st.markdown(
+                            f"**Page:** {source['page']}"
+                        )
+
+                        pdf_path = Path(source["file_path"])
+
+                        if pdf_path.exists():
+                            with pdf_path.open("rb") as pdf_file:
+                                st.download_button(
+                                    label=f"📄 Open / Download {source['file']}",
+                                    data=pdf_file,
+                                    file_name=source["file"],
+                                    mime="application/pdf",
+                                    key=f"download_{index}_{source['file']}_{source['page']}",
+                                )
+                        else:
+                            st.warning("PDF file not found locally.")
+
+                        with st.expander("Retrieved text preview"):
+                            st.write(source["text"])
+
+                        st.divider()
 
     # save assistant response
 
