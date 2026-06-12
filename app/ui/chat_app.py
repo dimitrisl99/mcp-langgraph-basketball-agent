@@ -27,6 +27,19 @@ Ask questions about:
 """
 )
 
+# ==========================
+# Sidebar
+# ==========================
+
+with st.sidebar:
+
+    st.header("Settings")
+
+    if st.button("🗑️ Clear Chat"):
+        st.session_state.messages = []
+        st.session_state.chat_history = []
+        st.rerun()
+
 #====================================
 # Session State Initialization
 #====================================
@@ -75,6 +88,11 @@ if prompt := st.chat_input("Ask a basketball question..."):
             )
 
             answer = result["answer"]
+            route = result["route"]
+            standalone_question = result["standalone_question"]
+
+            st.caption(f"Route: {route}")
+            st.caption(f"Standalone question: {standalone_question}")
 
             st.markdown(answer)
 
