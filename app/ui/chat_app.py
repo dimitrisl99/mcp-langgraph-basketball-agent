@@ -37,6 +37,14 @@ if "messages" not in st.session_state:
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
+if "last_agent_info" not in st.session_state:
+    st.session_state.last_agent_info = {
+        "route": "-",
+        "standalone_question": "-",
+        "sources_count": 0,
+        "model": "qwen3:8b",
+    }
+
 # ==========================
 # Sidebar
 # ==========================
@@ -65,6 +73,18 @@ with st.sidebar:
             st.markdown(f"**{index}.** {user_message}")
     else:
         st.caption("No messages yet.")
+
+    st.divider()
+
+    st.header("Agent Observability")
+
+    agent_info = st.session_state.last_agent_info
+
+    st.markdown(f"**Route:** `{agent_info['route']}`")
+    st.markdown(f"**Standalone Question:**")
+    st.caption(agent_info["standalone_question"])
+    st.markdown(f"**Retrieved Sources:** `{agent_info['sources_count']}`")
+    st.markdown(f"**Model:** `{agent_info['model']}`")
 
 #====================================
 # Display Previous Messages
@@ -107,6 +127,13 @@ if prompt := st.chat_input("Ask a basketball question..."):
             route = result["route"]
             standalone_question = result["standalone_question"]
             sources = result.get("sources", [])
+
+            st.session_state.last_agent_info = {
+                "route": route,
+                "standalone_question": standalone_question,
+                "sources_count": len(sources),
+                "model": "qwen3:8b",
+            }
 
             st.caption(f"Route: {route}")
             st.caption(f"Standalone question: {standalone_question}")
