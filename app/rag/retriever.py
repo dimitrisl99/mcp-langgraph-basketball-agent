@@ -22,7 +22,6 @@ def load_embedding_model() -> SentenceTransformer:
     global _embedding_model
 
     if _embedding_model is None:
-        print("Loading embedding model...")
         _embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
 
     return _embedding_model
@@ -36,7 +35,6 @@ def get_chroma_collection():
     global _chroma_collection
 
     if _chroma_collection is None:
-        print("Loading Chroma collection...")
 
         project_root = get_project_root()
         chroma_path = project_root / "data" / "chroma"

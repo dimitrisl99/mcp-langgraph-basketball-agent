@@ -10,3 +10,4 @@ ollama
 pandas
 nba_api
 langgraph
+streamlit
