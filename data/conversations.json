@@ -1,5 +1,19 @@
 [
   {
+    "id": "5f86534a-719e-4373-b88e-a8acd74cfc76",
+    "title": "New Chat",
+    "created_at": "2026-06-12T16:18:30",
+    "updated_at": "2026-06-12T16:18:30",
+    "messages": [],
+    "chat_history": [],
+    "last_agent_info": {
+      "route": "-",
+      "standalone_question": "-",
+      "sources_count": 0,
+      "model": "qwen3:8b"
+    }
+  },
+  {
     "id": "8bf5c39f-549c-4414-bd03-671bd934f8be",
     "title": "Who has the most assists?",
     "created_at": "2026-06-12T15:54:08",

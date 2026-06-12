@@ -14,6 +14,7 @@ from app.ui.conversation_manager import (
     add_new_conversation,
     get_conversation_by_id,
     update_conversation,
+    delete_conversation,
 )
 
 
@@ -97,9 +98,24 @@ with st.sidebar:
         is_current = conversation["id"] == st.session_state.current_conversation_id
         label = f"✅ {conversation['title']}" if is_current else conversation["title"]
 
-        if st.button(label, key=f"conversation_{conversation['id']}"):
-            st.session_state.current_conversation_id = conversation["id"]
-            st.rerun()
+        col1, col2 = st.columns([0.82, 0.18])
+
+        with col1:
+            if st.button(label, key=f"conversation_{conversation['id']}"):
+                st.session_state.current_conversation_id = conversation["id"]
+                st.rerun()
+
+        with col2:
+            if st.button("🗑", key=f"delete_{conversation['id']}"):
+                remaining_conversations = delete_conversation(conversation["id"])
+
+                if remaining_conversations:
+                    st.session_state.current_conversation_id = remaining_conversations[0]["id"]
+                else:
+                    new_conversation = add_new_conversation()
+                    st.session_state.current_conversation_id = new_conversation["id"]
+
+                st.rerun()
 
     st.divider()
 

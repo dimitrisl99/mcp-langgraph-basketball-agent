@@ -111,3 +111,16 @@ def get_conversation_by_id(conversation_id: str) -> dict | None:
             return conversation
 
     return None
+
+def delete_conversation(conversation_id: str) -> list[dict]:
+    conversations = load_conversations()
+
+    conversations = [
+        conversation
+        for conversation in conversations
+        if conversation["id"] != conversation_id
+    ]
+
+    save_conversations(conversations)
+
+    return conversations
