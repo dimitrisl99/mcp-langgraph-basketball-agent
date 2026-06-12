@@ -7,6 +7,9 @@ from sentence_transformers import SentenceTransformer
 EMBEDDING_MODEL_NAME = "BAAI/bge-small-en-v1.5"
 COLLECTION_NAME = "basketball_playbooks"
 
+#global μεταβλητές cache
+_embedding_model = None
+_chroma_collection = None
 
 def get_project_root() -> Path:
     return Path(__file__).parents[2]
@@ -14,22 +17,37 @@ def get_project_root() -> Path:
 
 def load_embedding_model() -> SentenceTransformer:
     """
-    Loads the same embedding model used when building the vector database.
+    Loads the embedding model only once per Python process.
     """
-    return SentenceTransformer(EMBEDDING_MODEL_NAME)
+    global _embedding_model
+
+    if _embedding_model is None:
+        print("Loading embedding model...")
+        _embedding_model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+
+    return _embedding_model
 
 
-def get_chroma_collection(chroma_path: Path):
+
+def get_chroma_collection():
     """
-    Connects to the existing Chroma vector database.
+    Loads the Chroma collection only once per Python process.
     """
-    client = chromadb.PersistentClient(path=str(chroma_path))
+    global _chroma_collection
 
-    collection = client.get_collection(
-        name=COLLECTION_NAME
-    )
+    if _chroma_collection is None:
+        print("Loading Chroma collection...")
 
-    return collection
+        project_root = get_project_root()
+        chroma_path = project_root / "data" / "chroma"
+
+        client = chromadb.PersistentClient(path=str(chroma_path))
+
+        _chroma_collection = client.get_collection(
+            name=COLLECTION_NAME
+        )
+
+    return _chroma_collection
 
 
 def format_results(results: dict) -> list[dict]:
@@ -60,11 +78,9 @@ def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
     """
     Searches basketball playbook chunks using semantic similarity.
     """
-    project_root = get_project_root()
-    chroma_path = project_root / "data" / "chroma"
 
     model = load_embedding_model()
-    collection = get_chroma_collection(chroma_path)
+    collection = get_chroma_collection()
 
     query_embedding = model.encode(
         query,
@@ -78,19 +94,35 @@ def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
 
     return format_results(results)
 
-
 if __name__ == "__main__":
-    query = "How does Spain Pick and Roll work?"
+    queries = [
+        "How does Spain Pick and Roll work?",
+        "What are the advantages of Spain Pick and Roll?",
+    ]
 
-    results = search_playbooks(query, top_k=5)
+    for query in queries:
+        results = search_playbooks(query, top_k=5)
 
-    print(f"\nQuery: {query}")
-    print("\nTop results:")
+        print(f"\nQuery: {query}")
+        print("\nTop results:")
 
-    for index, result in enumerate(results, start=1):
-        print(f"\n--- RESULT {index} ---")
-        print(f"Source: {result['source']}")
-        print(f"Page: {result['page']}")
-        print(f"Chunk: {result['chunk_index']}")
-        print(f"Distance: {result['distance']}")
-        print(result["text"][:1000])
+        for index, result in enumerate(results, start=1):
+            print(f"\n--- RESULT {index} ---")
+            print(f"Source: {result['source']}")
+            print(f"Page: {result['page']}")
+            print(f"Chunk: {result['chunk_index']}")
+            print(f"Distance: {result['distance']}")
+            print(result["text"][:800])
+
+"""
+Η τελευταία αλλαγή ουσιαστικά είναι οτι απο εκεί που το σύστημα πριν λειτουργούσε έτσι: 
+search_playbooks() --> load model --> load Chroma --> search 
+
+Τώρα ουσιαστικά γίνεται: 
+first search_playbooks() --> load model once --> load Chroma once --> search 
+second search_playbooks() --> reuse same model --> reuse same Chroma collection --> search 
+
+H ουσιαστική αλλαγή είναι οτι τώρα φορτώνει το model και την chroma μόνο μία φορά 
+"""
+
+

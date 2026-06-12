@@ -236,9 +236,9 @@ if __name__ == "__main__":
     ]
 
     for question in questions:
-        print("\n==============================")
+        print("\n========================================================")
         print("Question:", question)
-        print("==============================")
+        print("==========================================================")
 
         result = run_agent(
             question=question,
