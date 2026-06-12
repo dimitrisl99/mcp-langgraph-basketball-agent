@@ -233,9 +233,6 @@ if prompt:
                 "model": "qwen3:8b",
             }
 
-            st.caption(f"Route: {route}")
-            st.caption(f"Standalone question: {standalone_question}")
-
             message_placeholder = st.empty()
 
             displayed_answer = ""
