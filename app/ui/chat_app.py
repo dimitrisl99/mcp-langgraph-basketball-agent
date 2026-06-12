@@ -1,4 +1,5 @@
 import sys
+import time
 from pathlib import Path
 
 project_root = Path(__file__).parents[2]
@@ -184,7 +185,14 @@ if prompt := st.chat_input("Ask a basketball question..."):
             st.caption(f"Route: {route}")
             st.caption(f"Standalone question: {standalone_question}")
 
-            st.markdown(answer)
+            message_placeholder = st.empty()
+
+            displayed_answer = ""
+
+            for word in answer.split():
+                displayed_answer += word + " "
+                message_placeholder.markdown(displayed_answer)
+                time.sleep(0.02)
             if sources:
                 with st.expander("📚 Sources"):
                     for index, source in enumerate(sources, start=1):
