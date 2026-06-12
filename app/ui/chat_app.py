@@ -73,6 +73,9 @@ if current_conversation:
     st.session_state.chat_history = current_conversation["chat_history"]
     st.session_state.last_agent_info = current_conversation["last_agent_info"]
 
+if "is_generating" not in st.session_state:
+    st.session_state.is_generating = False
+
 # ==========================
 # Sidebar
 # ==========================
@@ -145,7 +148,14 @@ for message in st.session_state.messages:
 # User Input
 #====================================
 
-if prompt := st.chat_input("Ask a basketball question..."):
+prompt = st.chat_input(
+    "Ask a basketball question...",
+    disabled=st.session_state.is_generating,
+)
+
+if prompt:
+
+    st.session_state.is_generating = True
 
     # show user message
 
@@ -259,3 +269,6 @@ if prompt := st.chat_input("Ask a basketball question..."):
         chat_history=st.session_state.chat_history,
         last_agent_info=st.session_state.last_agent_info,
     )
+
+    st.session_state.is_generating = False
+    st.rerun()
