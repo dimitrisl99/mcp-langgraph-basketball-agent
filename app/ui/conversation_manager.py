@@ -1,4 +1,5 @@
 import json
+import ollama
 from datetime import datetime
 from pathlib import Path
 from uuid import uuid4
@@ -57,6 +58,41 @@ def generate_title_from_question(question: str) -> str:
 
     return title or "New Chat"
 
+OLLAMA_MODEL = "qwen3:8b"
+
+def generate_llm_title(question: str) -> str:
+    prompt = f"""
+Create a short, clear chat title for this basketball assistant conversation.
+
+Rules:
+- Maximum 5 words.
+- No quotes.
+- No punctuation unless needed.
+- Use title case.
+- Return only the title.
+
+User question:
+{question}
+
+Title:
+"""
+
+    response = ollama.chat(
+        model=OLLAMA_MODEL,
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+            }
+        ],
+    )
+
+    title = response["message"]["content"].strip()
+
+    if len(title) > 40:
+        title = title[:40].rstrip() + "..."
+
+    return title or generate_title_from_question(question)
 
 def update_conversation(
     conversation_id: str,
@@ -84,9 +120,7 @@ def update_conversation(
                 )
 
                 if first_user_message:
-                    conversation["title"] = generate_title_from_question(
-                        first_user_message
-                    )
+                    conversation["title"] = generate_llm_title(first_user_message)
 
             break
 
