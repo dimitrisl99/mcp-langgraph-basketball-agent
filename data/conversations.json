@@ -1,14 +1,91 @@
 [
   {
     "id": "5f86534a-719e-4373-b88e-a8acd74cfc76",
-    "title": "New Chat",
+    "title": "Spain Pick and Roll Strategy",
     "created_at": "2026-06-12T16:18:30",
-    "updated_at": "2026-06-12T16:18:30",
-    "messages": [],
-    "chat_history": [],
+    "updated_at": "2026-06-14T13:13:34",
+    "messages": [
+      {
+        "role": "user",
+        "content": "How does Spain Pick and Roll work?"
+      },
+      {
+        "role": "assistant",
+        "content": "The Spain Pick and Roll (PNR) is designed to create space and misdirect defenders by leveraging quick reads and movement. Here’s how it works:  \n\n1. **Driver and Roller Role**: The ball handler (driver) and the roller (the player screening) typically take about 20% of the action. The driver often pauses or uses a \"KOB\" (kick-out bounce) to create separation, while the roller may pop out to the perimeter or cut to the basket.  \n\n2. **Perimeter Reaction**: The majority (60%) of the play relies on the other three perimeter players reacting to defensive tags and rotations. These players look to exploit gaps created by the defense’s attempt to contain the PNR.  \n\n3. **Origins and Space**: The concept emerged when the Spain team got stuck in the middle of the floor, forcing them to use the PNR to free up space. The idea is to use the back-screen to create downhill opportunities for the driver or roller while forcing defenders to rotate.  \n\n4. **Execution**: The ball handler should hesitate or use a KOB to buy time for the back-screen to happen. Spain emphasizes rejecting the defense’s attempt to clog the paint by using the space effectively.  \n\nThe key is to read the defense’s rotation and exploit mismatches, with the driver and roller acting as the primary initiators but relying on the rest of the team to create scoring chances.",
+        "sources": [
+          {
+            "label": "Source 1",
+            "file": "Sergio-Scariolo-Spain-Pick-and-Roll.pdf",
+            "page": 1,
+            "chunk_index": 0,
+            "text": "wwwbasketballimmersion.com Noted compiled by Alex Sarama Sergio Scariolo Spain Pick and Roll",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Sergio-Scariolo-Spain-Pick-and-Roll.pdf"
+          },
+          {
+            "label": "Source 2",
+            "file": "Sergio-Scariolo-Spain-Pick-and-Roll.pdf",
+            "page": 1,
+            "chunk_index": 1,
+            "text": "Spain National Team PNR Numbers = 20% driver coming off pick finishes it, 20% for the roller or popper; 60% for one of the other 3 perimeter players reacting to defensive tags and rotations: This use to be a lot higher for the driver and roller but the numbers have now changedl When looking at PNR, problem they were looking to identify was how can we create more space for the driver and roller? On the two side it's easier for the defense to contain the PNR because they can tag and then X out: The concept came when in a game, the 5 man got accidentally stuck in the middle and fell over; taking out x4 as 4 was rollingl This brought to life the Spain PNR conceptl During Spain PNR, ball handled should look to pause (hesi) or KOB to create time with the back- screen happening and read the situation. Spain gives a great opportunity to reject with the concern over the back-screen and lots of space to get downhill:",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Sergio-Scariolo-Spain-Pick-and-Roll.pdf"
+          },
+          {
+            "label": "Source 3",
+            "file": "Spain-National-Team-Playbook.pdf",
+            "page": 1,
+            "chunk_index": 0,
+            "text": "Spain National Team BASRETBALL PLaybook X Playbook",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Spain-National-Team-Playbook.pdf"
+          },
+          {
+            "label": "Source 4",
+            "file": "Spain-National-Team-Playbook.pdf",
+            "page": 27,
+            "chunk_index": 0,
+            "text": "Step 45 Spain Half Court Sets Step 45 Spain Half Court Sets",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Spain-National-Team-Playbook.pdf"
+          },
+          {
+            "label": "Source 5",
+            "file": "Spain-National-Team-Playbook.pdf",
+            "page": 135,
+            "chunk_index": 0,
+            "text": "Slice (Spain) Half Court Sets Slice (Spain) Half Court Sets Slice (Spain) Half Court Sets",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Spain-National-Team-Playbook.pdf"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "Who player has the most assists ? "
+      },
+      {
+        "role": "assistant",
+        "content": "As of the latest records, Trae Young holds the distinction of having the most assists in NBA history.",
+        "sources": []
+      }
+    ],
+    "chat_history": [
+      {
+        "role": "user",
+        "content": "How does Spain Pick and Roll work?"
+      },
+      {
+        "role": "assistant",
+        "content": "The Spain Pick and Roll (PNR) is designed to create space and misdirect defenders by leveraging quick reads and movement. Here’s how it works:  \n\n1. **Driver and Roller Role**: The ball handler (driver) and the roller (the player screening) typically take about 20% of the action. The driver often pauses or uses a \"KOB\" (kick-out bounce) to create separation, while the roller may pop out to the perimeter or cut to the basket.  \n\n2. **Perimeter Reaction**: The majority (60%) of the play relies on the other three perimeter players reacting to defensive tags and rotations. These players look to exploit gaps created by the defense’s attempt to contain the PNR.  \n\n3. **Origins and Space**: The concept emerged when the Spain team got stuck in the middle of the floor, forcing them to use the PNR to free up space. The idea is to use the back-screen to create downhill opportunities for the driver or roller while forcing defenders to rotate.  \n\n4. **Execution**: The ball handler should hesitate or use a KOB to buy time for the back-screen to happen. Spain emphasizes rejecting the defense’s attempt to clog the paint by using the space effectively.  \n\nThe key is to read the defense’s rotation and exploit mismatches, with the driver and roller acting as the primary initiators but relying on the rest of the team to create scoring chances."
+      },
+      {
+        "role": "user",
+        "content": "Who player has the most assists ? "
+      },
+      {
+        "role": "assistant",
+        "content": "As of the latest records, Trae Young holds the distinction of having the most assists in NBA history."
+      }
+    ],
     "last_agent_info": {
-      "route": "-",
-      "standalone_question": "-",
+      "route": "SQL",
+      "standalone_question": "Who has the most assists in basketball history?",
       "sources_count": 0,
       "model": "qwen3:8b"
     }

@@ -53,6 +53,7 @@ if "last_agent_info" not in st.session_state:
         "standalone_question": "-",
         "sources_count": 0,
         "model": "qwen3:8b",
+        "timings": {},
     }
 
 if "conversations" not in st.session_state:
@@ -130,6 +131,7 @@ with st.sidebar:
             "standalone_question": "-",
             "sources_count": 0,
             "model": "qwen3:8b",
+            "timings": {},
         }
 
         update_conversation(
@@ -171,6 +173,13 @@ with st.sidebar:
     st.caption(agent_info["standalone_question"])
     st.markdown(f"**Retrieved Sources:** `{agent_info['sources_count']}`")
     st.markdown(f"**Model:** `{agent_info['model']}`")
+    timings = agent_info.get("timings", {})
+
+    if timings:
+        st.markdown("### Timings")
+
+        for step, value in timings.items():
+            st.markdown(f"**{step}:** `{value}s`")
 
 #====================================
 # Display Previous Messages
@@ -277,6 +286,7 @@ if prompt:
                 "standalone_question": standalone_question,
                 "sources_count": len(sources),
                 "model": "qwen3:8b",
+                "timings": result.get("timings", {}),
             }
 
             message_placeholder = st.empty()
