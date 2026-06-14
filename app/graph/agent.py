@@ -10,7 +10,7 @@ iii) SQL
 """
 
 from typing import TypedDict, Literal
-
+import time
 import ollama
 from langgraph.graph import StateGraph, END
 
@@ -27,7 +27,11 @@ class AgentState(TypedDict):
     route: str
     answer: str
     sources: list[dict]
+    timings: dict
 
+def record_timing(state: AgentState, step_name: str, start_time: float) -> None:
+    elapsed = time.perf_counter() - start_time
+    state["timings"][step_name] = round(elapsed, 3)
 
 def format_chat_history(chat_history: list[dict]) -> str:
     if not chat_history:
@@ -47,6 +51,7 @@ def format_chat_history(chat_history: list[dict]) -> str:
 
 
 def rewrite_question(state: AgentState) -> AgentState:
+    start_time = time.perf_counter()
     question = state["question"]
     chat_history = state["chat_history"]
 
@@ -88,10 +93,13 @@ Standalone question:
 
     state["standalone_question"] = standalone_question
 
+    record_timing(state, "rewrite_question", start_time)
+
     return state
 
 
 def route_question(state: AgentState) -> AgentState:
+    start_time = time.perf_counter()
     question = state["standalone_question"]
 
     prompt = f"""
@@ -129,10 +137,13 @@ Question:
     else:
         state["route"] = "RAG"
 
+    record_timing(state, "route_question", start_time)
+
     return state
 
 
 def rag_node(state: AgentState) -> AgentState:
+    start_time = time.perf_counter()
     question = state["standalone_question"]
 
     result = call_mcp_tool(
@@ -152,10 +163,13 @@ def rag_node(state: AgentState) -> AgentState:
         state["answer"] = result
         state["sources"] = []
 
+    record_timing(state, "rag_mcp_tool", start_time)
+
     return state
 
 
 def sql_node(state: AgentState) -> AgentState:
+    start_time = time.perf_counter()
     question = state["standalone_question"]
     state["sources"] = []
 
@@ -168,6 +182,8 @@ def sql_node(state: AgentState) -> AgentState:
 
     state["route"] = "SQL"
     state["answer"] = answer
+
+    record_timing(state, "sql_mcp_tool", start_time)
 
     return state
 
@@ -210,6 +226,7 @@ def run_agent(
     question: str,
     chat_history: list[dict] | None = None,
 ) -> dict:
+    total_start_time = time.perf_counter()
     app = build_graph()
 
     if chat_history is None:
@@ -222,9 +239,15 @@ def run_agent(
         "route": "",
         "answer": "",
         "sources": [],
+        "timings": {},
     }
 
     final_state = app.invoke(initial_state)
+
+    final_state["timings"]["total_agent_time"] = round(
+        time.perf_counter() - total_start_time,
+        3
+    )
 
     return {
         "question": question,
@@ -232,6 +255,7 @@ def run_agent(
         "route": final_state["route"],
         "answer": final_state["answer"],
         "sources": final_state["sources"],
+        "timings": final_state["timings"],
     }
 
 
@@ -254,6 +278,7 @@ if __name__ == "__main__":
             question=question,
             chat_history=chat_history,
         )
+
 
         print("Standalone question:", result["standalone_question"])
         print("Route:", result["route"])
