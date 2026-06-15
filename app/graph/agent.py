@@ -164,6 +164,11 @@ def rag_node(state: AgentState) -> AgentState:
     if isinstance(result, dict):
         state["answer"] = result["answer"]
         state["sources"] = result.get("sources", [])
+
+        rag_timings = result.get("rag_timings", {})
+
+        for step, value in rag_timings.items():
+            state["timings"][f"rag_{step}"] = value
     else:
         state["answer"] = result
         state["sources"] = []
