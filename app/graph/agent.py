@@ -55,6 +55,11 @@ def rewrite_question(state: AgentState) -> AgentState:
     question = state["question"]
     chat_history = state["chat_history"]
 
+    if not chat_history:
+        state["standalone_question"] = question
+        record_timing(state, "rewrite_question", start_time)
+        return state
+
     history_text = format_chat_history(chat_history)
 
     prompt = f"""
