@@ -40,6 +40,11 @@ def generate_basketball_answer(question: str, top_k: int = 5) -> dict:
         top_k=top_k,
     )
 
+    print(
+        f"[DEBUG] Retrieved chunks: "
+        f"{len(retrieved_results)}"
+    )
+
     rag_timings["retrieval"] = round(
         time.perf_counter() - retrieval_start_time,
         3

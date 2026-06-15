@@ -8,6 +8,7 @@ this keeps one MCP server/session alive for the lifetime of the app process.
 import asyncio
 import atexit
 import json
+import time
 import threading
 from contextlib import AsyncExitStack
 from pathlib import Path
@@ -92,9 +93,16 @@ class PersistentMCPClient:
         if self.session is None:
             raise RuntimeError("MCP session has not been initialized.")
 
+        start = time.perf_counter()
+
         result = await self.session.call_tool(
             tool_name,
             arguments=arguments,
+        )
+
+        print(
+            f"[TIMING] MCP call ({tool_name}): "
+            f"{time.perf_counter() - start:.3f}s"
         )
 
         if result.structuredContent and "result" in result.structuredContent:

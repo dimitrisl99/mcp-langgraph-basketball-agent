@@ -1,6 +1,8 @@
 from pathlib import Path
 
 import chromadb
+import time
+
 from sentence_transformers import SentenceTransformer
 
 
@@ -77,20 +79,51 @@ def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
     Searches basketball playbook chunks using semantic similarity.
     """
 
+    t0 = time.perf_counter()
+
     model = load_embedding_model()
+
+    print(
+        f"[TIMING] load_embedding_model: "
+        f"{time.perf_counter() - t0:.3f}s"
+    )
+
+    t1 = time.perf_counter()
+
     collection = get_chroma_collection()
+
+    print(
+        f"[TIMING] get_chroma_collection: "
+        f"{time.perf_counter() - t1:.3f}s"
+    )
+
+    t2 = time.perf_counter()
 
     query_embedding = model.encode(
         query,
         normalize_embeddings=True,
     )
 
+    print(
+        f"[TIMING] embedding_query: "
+        f"{time.perf_counter() - t2:.3f}s"
+    )
+
+    t3 = time.perf_counter()
+
     results = collection.query(
         query_embeddings=[query_embedding.tolist()],
         n_results=top_k,
     )
 
+    print(
+        f"[TIMING] chroma_query: "
+        f"{time.perf_counter() - t3:.3f}s"
+    )
+
     return format_results(results)
+
+
 
 if __name__ == "__main__":
     queries = [
