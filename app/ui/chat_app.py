@@ -179,7 +179,10 @@ with st.sidebar:
         st.markdown("### Timings")
 
         for step, value in timings.items():
-            st.markdown(f"**{step}:** `{value}s`")
+            if isinstance(value, (int, float)):
+                st.markdown(f"**{step}:** `{value}s`")
+            else:
+                st.markdown(f"**{step}:** `{value}`")
 
 #====================================
 # Display Previous Messages

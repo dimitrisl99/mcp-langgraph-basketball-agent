@@ -103,9 +103,79 @@ Standalone question:
     return state
 
 
+SQL_KEYWORDS = [
+    "point", "points", "pts",
+    "assist", "assists", "ast",
+    "rebound", "rebounds", "reb",
+    "steal", "steals", "stl",
+    "block", "blocks", "blk",
+    "turnover", "turnovers", "tov",
+    "field goal", "fg%",
+    "three point", "3 point", "3-point", "three-point", "fg3",
+    "free throw", "ft%",
+    "percentage", "percent",
+    "top", "leader", "leaders",
+    "average", "averages",
+    "stats", "statistics",
+    "player", "players",
+    "team", "teams",
+]
+
+RAG_KEYWORDS = [
+    "play", "plays",
+    "offense", "offence",
+    "defense", "defence",
+    "system", "systems",
+    "pick and roll", "pnr",
+    "spain", "flex",
+    "motion", "5-out", "5 out",
+    "screen", "screens",
+    "cut", "cuts",
+    "spacing",
+    "set", "sets",
+    "scheme", "concept",
+    "coach", "coaching",
+    "explain", "how does", "what is",
+]
+
+def rule_based_route(question: str) -> str | None:
+    question_lower = question.lower()
+
+    sql_score = sum(
+        1 for keyword in SQL_KEYWORDS
+        if keyword in question_lower
+    )
+
+    rag_score = sum(
+        1 for keyword in RAG_KEYWORDS
+        if keyword in question_lower
+    )
+
+    if sql_score > 0 and rag_score == 0:
+        return "SQL"
+
+    if rag_score > 0 and sql_score == 0:
+        return "RAG"
+
+    if sql_score >= 2 and sql_score > rag_score:
+        return "SQL"
+
+    if rag_score >= 2 and rag_score > sql_score:
+        return "RAG"
+
+    return None
+
 def route_question(state: AgentState) -> AgentState:
     start_time = time.perf_counter()
     question = state["standalone_question"]
+
+    rule_route = rule_based_route(question)
+
+    if rule_route:
+        state["route"] = rule_route
+        record_timing(state, "route_question", start_time)
+        state["timings"]["router_method"] = f"rule_based_{rule_route.lower()}"
+        return state
 
     prompt = f"""
 You are a routing assistant.
@@ -143,6 +213,8 @@ Question:
         state["route"] = "RAG"
 
     record_timing(state, "route_question", start_time)
+
+    state["timings"]["router_method"] = "llm_fallback"
 
     return state
 
