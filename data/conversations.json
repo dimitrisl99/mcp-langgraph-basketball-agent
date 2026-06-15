@@ -1,5 +1,219 @@
 [
   {
+    "id": "a460dca7-6126-4a85-804b-d39a49a979e8",
+    "title": "Spain Pick and Roll Strategy",
+    "created_at": "2026-06-15T12:36:47",
+    "updated_at": "2026-06-15T12:42:02",
+    "messages": [
+      {
+        "role": "user",
+        "content": "How does Spain Pick and Roll work?"
+      },
+      {
+        "role": "assistant",
+        "content": "The Spain Pick and Roll (PNR) is designed to create space and exploit defensive rotations, with specific emphasis on involving multiple perimeter players. Here’s how it works based on the playbook context:  \n\n1. **Scoring Distribution**:  \n   - Approximately **20%** of PNR plays result in the driver (ball handler) finishing, and **20%** involve the roller/popper (the player screening).  \n   - **60%** of opportunities are directed toward **other perimeter players** (e.g., the third or fourth player) who react to defensive tags or rotations. This shift reflects a modern emphasis on spacing and ball movement over isolated drives.  \n\n2. **Key Execution Elements**:  \n   - **Pause or Hesitation**: The ball handler is instructed to pause (hesitate) or use a \"KOB\" (likely a typo for \"keep on ball\" or \"create space\") to buy time for the back-screen to develop.  \n   - **Back-Screen Creation**: The concept originated when the team got \"stuck in the middle\" during a game, leading to the idea of using a back-screen to free up the driver or roller.  \n   - **Rejection and Space**: Spain’s PNR prioritizes rejecting the defense’s attempt to contain the play by leveraging space and downhill driving lanes.  \n\n3. **Defensive Challenges**:  \n   - The Spain PNR is structured to force defenders into difficult rotations, as the team often \"tags\" (defensive help) and \"x-outs\" (defenders switching or leaving a player). The goal is to create mismatches or open shots for the perimeter players.  \n\nThe playbook highlights that the Spain PNR is less about isolated drives and more about **teamwide reactions to defensive pressure**, with a focus on spacing and quick reads. However, the context does not include detailed diagrams or step-by-step execution beyond these principles.",
+        "sources": [
+          {
+            "label": "Source 1",
+            "file": "Sergio-Scariolo-Spain-Pick-and-Roll.pdf",
+            "page": 1,
+            "chunk_index": 0,
+            "text": "wwwbasketballimmersion.com Noted compiled by Alex Sarama Sergio Scariolo Spain Pick and Roll",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Sergio-Scariolo-Spain-Pick-and-Roll.pdf"
+          },
+          {
+            "label": "Source 2",
+            "file": "Sergio-Scariolo-Spain-Pick-and-Roll.pdf",
+            "page": 1,
+            "chunk_index": 1,
+            "text": "Spain National Team PNR Numbers = 20% driver coming off pick finishes it, 20% for the roller or popper; 60% for one of the other 3 perimeter players reacting to defensive tags and rotations: This use to be a lot higher for the driver and roller but the numbers have now changedl When looking at PNR, problem they were looking to identify was how can we create more space for the driver and roller? On the two side it's easier for the defense to contain the PNR because they can tag and then X out: The concept came when in a game, the 5 man got accidentally stuck in the middle and fell over; taking out x4 as 4 was rollingl This brought to life the Spain PNR conceptl During Spain PNR, ball handled should look to pause (hesi) or KOB to create time with the back- screen happening and read the situation. Spain gives a great opportunity to reject with the concern over the back-screen and lots of space to get downhill:",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Sergio-Scariolo-Spain-Pick-and-Roll.pdf"
+          },
+          {
+            "label": "Source 3",
+            "file": "Spain-National-Team-Playbook.pdf",
+            "page": 1,
+            "chunk_index": 0,
+            "text": "Spain National Team BASRETBALL PLaybook X Playbook",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Spain-National-Team-Playbook.pdf"
+          },
+          {
+            "label": "Source 4",
+            "file": "Spain-National-Team-Playbook.pdf",
+            "page": 27,
+            "chunk_index": 0,
+            "text": "Step 45 Spain Half Court Sets Step 45 Spain Half Court Sets",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Spain-National-Team-Playbook.pdf"
+          },
+          {
+            "label": "Source 5",
+            "file": "Spain-National-Team-Playbook.pdf",
+            "page": 135,
+            "chunk_index": 0,
+            "text": "Slice (Spain) Half Court Sets Slice (Spain) Half Court Sets Slice (Spain) Half Court Sets",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Spain-National-Team-Playbook.pdf"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "Who is the best shouter ? "
+      },
+      {
+        "role": "assistant",
+        "content": "The available playbooks do not provide enough evidence to determine who the best shouter is. The context focuses on player roles, offensive strategies, and play diagrams but does not mention any players' communication skills, shouting tendencies, or related attributes.",
+        "sources": [
+          {
+            "label": "Source 1",
+            "file": "THE COMPLETE BOOK flex offense.pdf",
+            "page": 65,
+            "chunk_index": 0,
+            "text": "BEST PLA YERS IN PRESCRIBED SPOTS Best players are 1, 2, and 4. and are positioned as shown: #1 pases to #5 as #2 does basic flex cut off screen by #4. #I sets downscreen for #4. #5 can pass to #2 if he is open or pass to #4 coming to the top. After #4 receives pass several things may happen according to the strengths of the best players. Examples are in Diagrams 126-128. Being one of the better players, #4 may be an excellent driver and this gives a good opportunity for a drive situation: Notice that #1 has cut to the corner and that #2 has back-screened for #5 to keep defense busy and to enable #5 to get to the offensive board: #2 may be a good back-to-the-basket player and may be guarded by a weaker defender. #1 can flare to the corner, take a pass from #4 and feed #2 in post: If #1 cannot make the feed, he will pass back to #4 for high-low action feed to #2. #5 gets into rebound position while #3 checks back on defense:",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\THE COMPLETE BOOK flex offense.pdf"
+          },
+          {
+            "label": "Source 2",
+            "file": "Spain-National-Team-Playbook.pdf",
+            "page": 43,
+            "chunk_index": 0,
+            "text": "Horns Strong Hand Off Horns Horns Strong Hand Off Horns Horns Strong Hand Off Horns",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Spain-National-Team-Playbook.pdf"
+          },
+          {
+            "label": "Source 3",
+            "file": "Spain-National-Team-Playbook.pdf",
+            "page": 87,
+            "chunk_index": 0,
+            "text": "Horns Twist STS Rip Horns Horns Twist STS Rip Horns Horns Twist STS Rip Horns",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Spain-National-Team-Playbook.pdf"
+          },
+          {
+            "label": "Source 4",
+            "file": "Spain-National-Team-Playbook.pdf",
+            "page": 85,
+            "chunk_index": 0,
+            "text": "Horns Thru Strong Spread Horns Horns Thru Strong Spread Horns Horns Thru Strong Spread Horns",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Spain-National-Team-Playbook.pdf"
+          },
+          {
+            "label": "Source 5",
+            "file": "Spain-National-Team-Playbook.pdf",
+            "page": 158,
+            "chunk_index": 0,
+            "text": "Fist (EO) Punch Rip Early Offense Fist (EO) Punch Rip Early Offense",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\Spain-National-Team-Playbook.pdf"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "Explain me another play "
+      },
+      {
+        "role": "assistant",
+        "content": "Here’s another play from the playbook: **\"Blind Pig\"** (2-3 Set vs. Pressure).  \n\n**Setup:**  \n- The offense uses a 2-3 set. Defender overplays #2 (strongside post), so #2 drifts left to avoid the help.  \n- #4 cuts toward the free-throw line area, creating space.  \n- #1 (weakside) passes to #4, who then passes to #2 cutting toward the basket for a potential layup.  \n\n**Key Movement:**  \n- #4’s cut to the free-throw line forces the defense to commit, opening up a path for #2.  \n- If #2 is double-teamed, #4 can take the pass instead, using the cut to the post.  \n\nThis play is effective against aggressive defense because it forces the defender to choose between helping on the post or staying home, creating mismatches. It’s a staple for teams using the 2-3 set.",
+        "sources": [
+          {
+            "label": "Source 1",
+            "file": "THE COMPLETE BOOK flex offense.pdf",
+            "page": 34,
+            "chunk_index": 0,
+            "text": "#4 and #5 set a double screen as #2 sets cross-screen for #I. #1 cuts to the low post for possible pass from #3. #2 then comes off double screen set by #4 and #5. This play is commonly called <America 's play\" because SO many teams run it. Despite its popularity, it can be a very effective play especially when a team has been running the Flex and is not prepared defensively for this play option: High-Low Option from the Weakside:",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\THE COMPLETE BOOK flex offense.pdf"
+          },
+          {
+            "label": "Source 2",
+            "file": "THE COMPLETE BOOK flex offense.pdf",
+            "page": 26,
+            "chunk_index": 0,
+            "text": "#1 makes pass to #2 and cuts through to left corner. #2 passes to #4 stepping out and moves to right corner. #3 makes V cut and receives pass from #4 as #2 makes Flex cut off #5. Flex continuity from 1-3-1 Set: If #2 was not open, he sets Flex screen for #1 as #3 passes to #S coming off downscreen by #4. After his pass, #3 sets downscreen for #2. Another play pattern from the 1-3- 1 Set: #1 passes to #2 and cuts through lane and to the left side: #5 moves in position to take a pass from #2",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\THE COMPLETE BOOK flex offense.pdf"
+          },
+          {
+            "label": "Source 3",
+            "file": "THE COMPLETE BOOK flex offense.pdf",
+            "page": 62,
+            "chunk_index": 0,
+            "text": "#2 sets up a little higher: #I passes to #5 who passes to #2 cutting to basket: Skip pass to the offside wing: #4 starts cut to the free throw line vicinity, then dives to opposite post. When #4 is denied, #1 skip passes to #3 as #5 cuts across the lane for possible feed from #3. 2-3 Set 'Blind Pig\" Play vs: pressure: #2 is being overplayed so he drifts left. #4 cuts to free throw line and receives pass from #I. #2 cuts and receives pass from #4 for lay-up. Most experienced coaches who have run a 2-3 set have used this play before, one that was popularly called the blind pig:",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\THE COMPLETE BOOK flex offense.pdf"
+          },
+          {
+            "label": "Source 4",
+            "file": "THE COMPLETE BOOK flex offense.pdf",
+            "page": 12,
+            "chunk_index": 2,
+            "text": "#2 passes to Post #5 stepping out who relays ball to Post #4 cutting outside. #1 sets screen for #2 who again reads the defense and cuts into the the lane for possible pass from #4. The offense is now in the basic flex as #5 moves down to screen for #I.",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\THE COMPLETE BOOK flex offense.pdf"
+          },
+          {
+            "label": "Source 5",
+            "file": "THE COMPLETE BOOK flex offense.pdf",
+            "page": 70,
+            "chunk_index": 1,
+            "text": "4 scalled play\" when a team wants to get the ball inside. #1 advances, passes the ball to #4 and cuts to the right corner: Getting Ball Inside to #5. #4 receives the pass from #1 and reverses ball to #3. #4 cuts away to be in rebound position. #5 cuts across lane fighting for position on his defender. If #5 is open, #3 passes in to the post. Instead of 'reversing the ball to #3,#4 passes the ball to #2 on the strongside of the court Notice that #2, #1, and #5 form a triangle which is a good set to make an inside feed: Here, #2 passes to #1 who can pass inside, or if the defender is on the low side, #1 can return pass to #2 for a feed to #5 on the high side:",
+            "file_path": "C:\\Users\\Admin\\Desktop\\mcp-rag-sql-chatbot\\data\\playbooks\\THE COMPLETE BOOK flex offense.pdf"
+          }
+        ]
+      },
+      {
+        "role": "user",
+        "content": "Who is the best player in asssists ? "
+      },
+      {
+        "role": "assistant",
+        "content": "Trae Young is currently the leading assist leader in the NBA.",
+        "sources": []
+      }
+    ],
+    "chat_history": [
+      {
+        "role": "user",
+        "content": "How does Spain Pick and Roll work?"
+      },
+      {
+        "role": "assistant",
+        "content": "The Spain Pick and Roll (PNR) is designed to create space and exploit defensive rotations, with specific emphasis on involving multiple perimeter players. Here’s how it works based on the playbook context:  \n\n1. **Scoring Distribution**:  \n   - Approximately **20%** of PNR plays result in the driver (ball handler) finishing, and **20%** involve the roller/popper (the player screening).  \n   - **60%** of opportunities are directed toward **other perimeter players** (e.g., the third or fourth player) who react to defensive tags or rotations. This shift reflects a modern emphasis on spacing and ball movement over isolated drives.  \n\n2. **Key Execution Elements**:  \n   - **Pause or Hesitation**: The ball handler is instructed to pause (hesitate) or use a \"KOB\" (likely a typo for \"keep on ball\" or \"create space\") to buy time for the back-screen to develop.  \n   - **Back-Screen Creation**: The concept originated when the team got \"stuck in the middle\" during a game, leading to the idea of using a back-screen to free up the driver or roller.  \n   - **Rejection and Space**: Spain’s PNR prioritizes rejecting the defense’s attempt to contain the play by leveraging space and downhill driving lanes.  \n\n3. **Defensive Challenges**:  \n   - The Spain PNR is structured to force defenders into difficult rotations, as the team often \"tags\" (defensive help) and \"x-outs\" (defenders switching or leaving a player). The goal is to create mismatches or open shots for the perimeter players.  \n\nThe playbook highlights that the Spain PNR is less about isolated drives and more about **teamwide reactions to defensive pressure**, with a focus on spacing and quick reads. However, the context does not include detailed diagrams or step-by-step execution beyond these principles."
+      },
+      {
+        "role": "user",
+        "content": "Who is the best shouter ? "
+      },
+      {
+        "role": "assistant",
+        "content": "The available playbooks do not provide enough evidence to determine who the best shouter is. The context focuses on player roles, offensive strategies, and play diagrams but does not mention any players' communication skills, shouting tendencies, or related attributes."
+      },
+      {
+        "role": "user",
+        "content": "Explain me another play "
+      },
+      {
+        "role": "assistant",
+        "content": "Here’s another play from the playbook: **\"Blind Pig\"** (2-3 Set vs. Pressure).  \n\n**Setup:**  \n- The offense uses a 2-3 set. Defender overplays #2 (strongside post), so #2 drifts left to avoid the help.  \n- #4 cuts toward the free-throw line area, creating space.  \n- #1 (weakside) passes to #4, who then passes to #2 cutting toward the basket for a potential layup.  \n\n**Key Movement:**  \n- #4’s cut to the free-throw line forces the defense to commit, opening up a path for #2.  \n- If #2 is double-teamed, #4 can take the pass instead, using the cut to the post.  \n\nThis play is effective against aggressive defense because it forces the defender to choose between helping on the post or staying home, creating mismatches. It’s a staple for teams using the 2-3 set."
+      },
+      {
+        "role": "user",
+        "content": "Who is the best player in asssists ? "
+      },
+      {
+        "role": "assistant",
+        "content": "Trae Young is currently the leading assist leader in the NBA."
+      }
+    ],
+    "last_agent_info": {
+      "route": "SQL",
+      "standalone_question": "Who is the best player in assists ?",
+      "sources_count": 0,
+      "model": "qwen3:8b",
+      "timings": {
+        "rewrite_question": 13.348,
+        "route_question": 0.0,
+        "router_method": "rule_based_sql",
+        "sql_mcp_tool": 22.297,
+        "total_agent_time": 35.659
+      }
+    }
+  },
+  {
     "id": "1ebe189b-e4db-47a5-bb24-f40902fa22c9",
     "title": "Spain Pick and Roll Strategy",
     "created_at": "2026-06-15T11:35:44",

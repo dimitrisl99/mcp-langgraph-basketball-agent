@@ -164,25 +164,59 @@ with st.sidebar:
 
     st.divider()
 
-    st.header("Agent Observability")
+    show_debug = st.toggle(
+        "🔧 Developer Mode",
+        value=st.session_state.get(
+            "developer_mode",
+            False
+        )
+    )
 
-    agent_info = st.session_state.last_agent_info
+    if show_debug:
 
-    st.markdown(f"**Route:** `{agent_info['route']}`")
-    st.markdown("**Standalone Question:**")
-    st.caption(agent_info["standalone_question"])
-    st.markdown(f"**Retrieved Sources:** `{agent_info['sources_count']}`")
-    st.markdown(f"**Model:** `{agent_info['model']}`")
-    timings = agent_info.get("timings", {})
+        with st.expander(
+                "🔧 Agent Observability",
+                expanded=False,
+        ):
 
-    if timings:
-        st.markdown("### Timings")
+            agent_info = st.session_state.last_agent_info
 
-        for step, value in timings.items():
-            if isinstance(value, (int, float)):
-                st.markdown(f"**{step}:** `{value}s`")
-            else:
-                st.markdown(f"**{step}:** `{value}`")
+            st.markdown(
+                f"**Route:** `{agent_info['route']}`"
+            )
+
+            st.markdown(
+                "**Standalone Question:**"
+            )
+
+            st.caption(
+                agent_info["standalone_question"]
+            )
+
+            st.markdown(
+                f"**Retrieved Sources:** `{agent_info['sources_count']}`"
+            )
+
+            st.markdown(
+                f"**Model:** `{agent_info['model']}`"
+            )
+
+            timings = agent_info.get("timings", {})
+
+            if timings:
+
+                st.markdown("### Timings")
+
+                for step, value in timings.items():
+
+                    if isinstance(value, (int, float)):
+                        st.markdown(
+                            f"**{step}:** `{value}s`"
+                        )
+                    else:
+                        st.markdown(
+                            f"**{step}:** `{value}`"
+                        )
 
 #====================================
 # Display Previous Messages
