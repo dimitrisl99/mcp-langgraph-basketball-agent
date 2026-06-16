@@ -1,0 +1,8 @@
+{
+  "total_questions": 6,
+  "top_k": 5,
+  "hit_at_k": 1.0,
+  "text_hit_at_k": 1.0,
+  "mrr": 1.0,
+  "failed_cases": []
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "question": "How does Spain Pick and Roll work?",
+    "expected_route": "RAG"
+  },
+  {
+    "question": "Explain the Flex Offense.",
+    "expected_route": "RAG"
+  },
+  {
+    "question": "What are the progressions of the 5 Out Motion Offense?",
+    "expected_route": "RAG"
+  },
+  {
+    "question": "How does Davidson Motion Offense work?",
+    "expected_route": "RAG"
+  },
+  {
+    "question": "Who has the most assists?",
+    "expected_route": "SQL"
+  },
+  {
+    "question": "Who are the top 5 players by points?",
+    "expected_route": "SQL"
+  },
+  {
+    "question": "Which player has the best 3-point percentage?",
+    "expected_route": "SQL"
+  },
+  {
+    "question": "Who has the most rebounds?",
+    "expected_route": "SQL"
+  },
+  {
+    "question": "What team does Trae Young play for?",
+    "expected_route": "SQL"
+  },
+  {
+    "question": "Compare players by assists and turnovers.",
+    "expected_route": "SQL"
+  },
+  {
+    "question": "Which player would fit best in Spain Pick and Roll?",
+    "expected_route": "RAG"
+  },
+  {
+    "question": "What kind of player benefits from 5 Out Motion?",
+    "expected_route": "RAG"
+  }
+]
