@@ -1,8 +1,16 @@
 # MCP Basketball Assistant 🏀
 
-An AI-powered Basketball Assistant built with MCP (Model Context Protocol), LangGraph, RAG, OCR, and Text-to-SQL.
+An AI-powered Basketball Assistant built with MCP (Model Context Protocol), LangGraph, RAG, OCR, Text-to-SQL, and local LLMs.
 
-The project demonstrates how modern AI agents can combine unstructured knowledge retrieval and structured database querying within a single architecture.
+The project demonstrates how modern AI agents can combine:
+
+- Unstructured knowledge retrieval (RAG)
+- Structured database querying (SQL)
+- Multi-turn conversation memory
+- Dynamic tool routing
+- Local LLM inference
+
+within a single AI system.
 
 ---
 
@@ -16,9 +24,11 @@ This project was created as a hands-on learning experience focused on:
 - Implementing OCR-based document processing
 - Building vector databases and semantic search systems
 - Implementing local LLM inference with Ollama
-- Creating Text-to-SQL pipelines
-- Building LangGraph-based multi-tool agents
-- Combining RAG and SQL workflows into a single AI assistant
+- Building Text-to-SQL systems
+- Creating LangGraph-based AI agents
+- Combining RAG and SQL workflows
+- Building evaluation pipelines
+- Measuring and improving agent latency
 
 ---
 
@@ -28,17 +38,19 @@ The assistant can answer questions about:
 
 ### Basketball Systems & Playbooks
 
-- What is a Spain Pick & Roll?
-- How does the 5-Out Motion Offense work?
-- What are the principles of the Flex Offense?
-- Explain the Davidson Motion Offense.
+- How does Spain Pick and Roll work?
+- Explain the Flex Offense.
+- What are the progressions of 5-Out Motion?
+- Explain Davidson Motion Offense.
+- What play should I run against pressure defense?
 
 ### NBA Statistics
 
 - Who leads the league in assists?
-- Which players average over 25 points per game?
-- Who has the highest FG% this season?
-- Compare Nikola Jokic and Luka Doncic.
+- Who has the highest scoring average?
+- Which player has the best 3PT percentage?
+- Compare players by points and rebounds.
+- What team does Trae Young play for?
 
 ---
 
@@ -65,10 +77,13 @@ Semantic Chunking
     Retriever
         │
         ▼
+ Answer Generator
+        │
+        ▼
     Qwen3:8B
         │
         ▼
-   MCP Tool
+    MCP Tool
 ```
 
 ### SQL Pipeline
@@ -77,7 +92,7 @@ Semantic Chunking
 User Question
         │
         ▼
-     Qwen3
+    Qwen3:8B
         │
         ▼
    Text-to-SQL
@@ -86,19 +101,26 @@ User Question
  SQLite Database
         │
         ▼
-    Results
+   SQL Results
         │
         ▼
-   MCP Tool
+    MCP Tool
 ```
 
-### Agent Architecture
+### Agent Pipeline
 
 ```text
 User Question
         │
         ▼
-  LangGraph Router
+ Query Rewriting
+        │
+        ▼
+ Rule-Based Router
+        │
+   (fallback)
+        ▼
+  LLM Router
         │
    ┌────┴────┐
    ▼         ▼
@@ -114,51 +136,155 @@ User Question
 
 ---
 
+## Agent Features
+
+### Query Rewriting
+
+Supports follow-up questions such as:
+
+```text
+How does Spain Pick and Roll work?
+
+What are its advantages?
+```
+
+Automatically rewritten to:
+
+```text
+What are the advantages of Spain Pick and Roll?
+```
+
+---
+
+### Hybrid Router
+
+Uses:
+
+1. Rule-Based Routing
+2. LLM Fallback Routing
+
+Examples:
+
+```text
+Who has the most assists?
+→ SQL
+```
+
+```text
+Explain the Flex Offense.
+→ RAG
+```
+
+```text
+Who is the best scorer?
+→ LLM Fallback → SQL
+```
+
+---
+
+### Multi-Turn Conversations
+
+The assistant maintains conversation history and supports contextual follow-up questions.
+
+---
+
+### Agent Observability
+
+The system tracks:
+
+- Rewrite Time
+- Routing Time
+- Retrieval Time
+- Context Building Time
+- LLM Generation Time
+- Total RAG Time
+- Total Agent Time
+
+Example:
+
+```text
+rewrite_question: 4.2s
+route_question: 0.0s
+rag_retrieval: 0.8s
+rag_ollama_generation: 6.4s
+total_agent_time: 11.8s
+```
+
+---
+
+## Streamlit Interface
+
+Current UI Features:
+
+### Chat Features
+
+- Multi-chat support
+- Conversation persistence
+- Chat history sidebar
+- Chat renaming
+- Delete chat
+- Suggested starter questions
+- Source citations
+- Collapsible source panel
+
+### Developer Features
+
+- Agent Observability Panel
+- Route visualization
+- Retrieved sources count
+- Timing breakdown
+- Router method display
+
+---
+
 ## Current Features
 
 ### OCR Pipeline
 
 - PDF ingestion
-- PyMuPDF page rendering
+- PyMuPDF rendering
 - EasyOCR extraction
-- GPU acceleration support
-- Structured document metadata
+- Metadata preservation
+- GPU support
 
 ### Semantic Chunking
 
-- Semantic document splitting
-- Sentence-transformer embeddings
-- Metadata preservation
+- Semantic chunking
+- Metadata-aware chunks
 - Chunk merging
+
+### Embeddings
+
+- BAAI/bge-small-en-v1.5
+- Local embeddings
+- Vector search
 
 ### Vector Database
 
-- ChromaDB persistence
-- BGE embeddings
-- Metadata-aware storage
-- Semantic similarity search
+- ChromaDB
+- Persistent storage
+- Metadata filtering
 
-### Retrieval Pipeline
+### Retrieval
 
 - Top-K retrieval
 - Source tracking
-- Page-level citations
-- Basketball playbook search
+- Page citations
+- Semantic search
 
 ### Answer Generation
 
-- Local inference with Ollama
-- Qwen3:8B integration
-- Context-grounded responses
+- Qwen3:8B
+- Ollama
+- Context-grounded answers
 - Source-aware prompting
 
 ### SQL Pipeline
 
 - NBA statistics database
-- SQLite storage
-- Safe SQL execution
-- Text-to-SQL generation
-- SQL validation layer
+- SQLite
+- Safe execution
+- SQL validation
 
 ### MCP Integration
 
@@ -169,40 +295,110 @@ User Question
 
 ### LangGraph Agent
 
-- Multi-tool routing
-- RAG vs SQL classification
-- Dynamic tool selection
-- End-to-end agent workflow
+- Query rewriting
+- Dynamic routing
+- Multi-tool orchestration
+- RAG + SQL integration
+
+---
+
+## Evaluation Framework
+
+### Retriever Evaluation
+
+Metrics:
+
+- Hit@K
+- Text Hit@K
+- Mean Reciprocal Rank (MRR)
+
+Current Results:
+
+```text
+Hit@5: 1.00
+Text Hit@5: 1.00
+MRR: 1.00
+```
+
+---
+
+### Router Evaluation
+
+Metrics:
+
+- Routing Accuracy
+
+Current Results:
+
+```text
+Accuracy: 1.00
+```
+
+---
+
+### Rewrite Evaluation
+
+Metrics:
+
+- Rewrite Accuracy
+
+Current Results:
+
+```text
+Accuracy: 1.00
+```
+
+---
+
+### End-to-End Agent Evaluation
+
+Evaluates:
+
+- Query Rewriting
+- Routing
+- MCP Communication
+- Retrieval
+- Generation
+- Final Answers
+
+through the complete production pipeline.
 
 ---
 
 ## Project Structure
 
 ```text
-mcp-basketball-assistant/
+mcp-rag-sql-chatbot/
 
 ├── app/
 │
-│   ├── graph/
-│   │   ├── agent.py
-│   │   └── mcp_client.py
-│   │
-│   ├── mcp/
-│   │   ├── server.py
-│   │   └── test_client.py
-│   │
-│   ├── rag/
-│   │   ├── pdf_processor.py
-│   │   ├── semantic_chunker.py
-│   │   ├── build_vector_db.py
-│   │   ├── retriever.py
-│   │   └── answer_generator.py
-│   │
-│   └── sql/
-│       ├── build_nba_db.py
-│       ├── inspect_db.py
-│       ├── sql_executor.py
-│       └── text_to_sql.py
+├── graph/
+│   ├── agent.py
+│   └── mcp_client.py
+│
+├── mcp/
+│   ├── server.py
+│   └── test_client.py
+│
+├── rag/
+│   ├── pdf_processor.py
+│   ├── semantic_chunker.py
+│   ├── build_vector_db.py
+│   ├── retriever.py
+│   └── answer_generator.py
+│
+├── sql/
+│   ├── build_nba_db.py
+│   ├── text_to_sql.py
+│   └── sql_executor.py
+│
+├── evaluation/
+│   ├── evaluate_retrieval.py
+│   ├── evaluate_router.py
+│   ├── evaluate_rewrite.py
+│   └── evaluate_agent.py
+│
+├── streamlit_app.py
 │
 ├── data/
 │   ├── playbooks/
@@ -221,6 +417,7 @@ mcp-basketball-assistant/
 - Python
 - MCP (Model Context Protocol)
 - LangGraph
+- Streamlit
 - EasyOCR
 - PyMuPDF
 - Sentence Transformers
@@ -238,65 +435,84 @@ mcp-basketball-assistant/
 
 ### Phase 1 — Data Processing
 
-- [x] Project Setup
 - [x] OCR Pipeline
 - [x] Semantic Chunking
+- [x] Metadata Extraction
 
 ### Phase 2 — Retrieval Pipeline
 
 - [x] Embeddings Generation
-- [x] Chroma Vector Database
+- [x] ChromaDB
 - [x] Retriever
 
 ### Phase 3 — RAG System
 
 - [x] Answer Generator
-- [x] Local LLM Integration
+- [x] Source Citations
 - [x] MCP RAG Tool
 
 ### Phase 4 — Structured Data
 
 - [x] NBA Statistics Database
-- [x] SQLite Integration
 - [x] SQL Executor
-- [x] Text-to-SQL Tool
+- [x] Text-to-SQL
 - [x] MCP SQL Tool
 
 ### Phase 5 — Agent Architecture
 
+- [x] Query Rewriting
 - [x] LangGraph Agent
-- [x] Multi-Tool Routing
-- [x] RAG + SQL Integration
+- [x] Rule-Based Router
+- [x] LLM Fallback Router
+- [x] Multi-Turn Conversations
 
-### Phase 6 — Next Steps
+### Phase 6 — User Interface
 
-- [ ] Conversation Memory
-- [ ] Query Rewriting
-- [ ] Multi-turn Conversations
-- [ ] Streamlit Chat Interface
-- [ ] Agent Observability
-- [ ] Evaluation Framework
+- [x] Streamlit Chat UI
+- [x] Multiple Chats
+- [x] Chat Persistence
+- [x] Rename Chat
+- [x] Suggested Questions
+- [x] Agent Observability
+
+### Phase 7 — Evaluation
+
+- [x] Retriever Evaluation
+- [x] Router Evaluation
+- [x] Rewrite Evaluation
+- [x] End-to-End Evaluation
+
+### Phase 8 — Future Work
+
+- [ ] Cross-Encoder Reranking
+- [ ] Hybrid Search (BM25 + Vector)
+- [ ] Streaming Responses
+- [ ] Multi-Agent Workflows
+- [ ] Basketball Diagram Retrieval
+- [ ] Advanced Analytics Dashboard
 
 ---
 
 ## Current Status
 
-🚧 Work in Progress
+✅ Fully Functional End-to-End AI Agent
 
 Implemented:
 
-- OCR-based PDF processing
-- Semantic chunking
-- Embedding generation
-- Chroma vector database
-- Semantic retrieval
-- Local RAG pipeline
-- NBA statistics database
-- Text-to-SQL pipeline
-- MCP server and tools
-- LangGraph routing agent
-- End-to-end RAG + SQL architecture
+- OCR Pipeline
+- Semantic Chunking
+- Vector Database
+- RAG Retrieval
+- Local LLM Generation
+- Text-to-SQL
+- MCP Tools
+- LangGraph Agent
+- Query Rewriting
+- Multi-turn Conversations
+- Streamlit Interface
+- Evaluation Framework
+- Agent Observability
 
 Next milestone:
 
-➡ Conversation Memory & Follow-up Question Handling
+➡ Hybrid Search + Cross-Encoder Reranking
