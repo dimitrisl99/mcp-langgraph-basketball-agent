@@ -1,0 +1,56 @@
+[
+  {
+    "question": "How does Spain Pick and Roll work?",
+    "expected_sources": [
+      "Sergio-Scariolo-Spain-Pick-and-Roll.pdf"
+    ],
+    "expected_text_contains": [
+      "Spain PNR"
+    ]
+  },
+  {
+    "question": "What are the advantages of Spain Pick and Roll?",
+    "expected_sources": [
+      "Sergio-Scariolo-Spain-Pick-and-Roll.pdf"
+    ],
+    "expected_text_contains": [
+      "create more space"
+    ]
+  },
+  {
+    "question": "How does 5 Out Motion Offense work?",
+    "expected_sources": [
+      "5-out-motion-offense-2017.pdf"
+    ],
+    "expected_text_contains": [
+      "5 Out Motion"
+    ]
+  },
+  {
+    "question": "What are the progressions of the 5 Out Motion Offense?",
+    "expected_sources": [
+      "5-out-motion-offense-2017.pdf"
+    ],
+    "expected_text_contains": [
+      "Progression"
+    ]
+  },
+  {
+    "question": "How does the Flex Offense work?",
+    "expected_sources": [
+      "THE COMPLETE BOOK flex offense.pdf"
+    ],
+    "expected_text_contains": [
+      "flex offense"
+    ]
+  },
+  {
+    "question": "How does Davidson Motion Offense work?",
+    "expected_sources": [
+      "Davidson-Wildcats-Motion-Offense.pdf"
+    ],
+    "expected_text_contains": [
+      "Motion Offense"
+    ]
+  }
+]
