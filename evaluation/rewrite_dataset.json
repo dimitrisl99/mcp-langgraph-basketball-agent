@@ -1,0 +1,70 @@
+[
+  {
+    "chat_history": [
+      {
+        "role": "user",
+        "content": "How does Spain Pick and Roll work?"
+      },
+      {
+        "role": "assistant",
+        "content": "Spain Pick and Roll uses a ball screen with a back screen on the roller."
+      }
+    ],
+    "question": "What are its advantages?",
+    "expected_contains": [
+      "Spain Pick and Roll",
+      "advantages"
+    ]
+  },
+  {
+    "chat_history": [
+      {
+        "role": "user",
+        "content": "How does 5 Out Motion Offense work?"
+      },
+      {
+        "role": "assistant",
+        "content": "5 Out Motion Offense uses spacing, cutting, and perimeter movement."
+      }
+    ],
+    "question": "What are its progressions?",
+    "expected_contains": [
+      "5 Out Motion",
+      "progressions"
+    ]
+  },
+  {
+    "chat_history": [
+      {
+        "role": "user",
+        "content": "Who has the most assists?"
+      },
+      {
+        "role": "assistant",
+        "content": "Trae Young has the most assists."
+      }
+    ],
+    "question": "What team does he play for?",
+    "expected_contains": [
+      "Trae Young",
+      "team"
+    ]
+  },
+  {
+    "chat_history": [
+      {
+        "role": "user",
+        "content": "Explain the Flex Offense."
+      },
+      {
+        "role": "assistant",
+        "content": "The Flex Offense is based on screening, cutting, and timing."
+      }
+    ],
+    "question": "What kind of players benefit from this system?",
+    "expected_contains": [
+      "Flex Offense",
+      "players"
+    ]
+  }
+]
