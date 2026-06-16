@@ -1,0 +1,35 @@
+[
+  {
+    "question": "How does Spain Pick and Roll work?",
+    "expected_route": "RAG",
+    "expected_source": "Sergio-Scariolo-Spain-Pick-and-Roll.pdf",
+    "expected_answer_contains": [
+      "back screen",
+      "roller"
+    ]
+  },
+  {
+    "question": "What are the advantages of Spain Pick and Roll?",
+    "expected_route": "RAG",
+    "expected_source": "Sergio-Scariolo-Spain-Pick-and-Roll.pdf",
+    "expected_answer_contains": [
+      "space",
+      "roller"
+    ]
+  },
+  {
+    "question": "Who has the most assists?",
+    "expected_route": "SQL",
+    "expected_answer_contains": [
+      "Trae Young"
+    ]
+  },
+  {
+    "question": "Who are the top 5 players by points?",
+    "expected_route": "SQL",
+    "expected_answer_contains": [
+      "Shai",
+      "Giannis"
+    ]
+  }
+]

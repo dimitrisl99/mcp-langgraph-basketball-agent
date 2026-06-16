@@ -2,6 +2,7 @@ from pathlib import Path
 
 import chromadb
 import time
+import sys
 
 from sentence_transformers import SentenceTransformer
 
@@ -85,7 +86,8 @@ def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
 
     print(
         f"[TIMING] load_embedding_model: "
-        f"{time.perf_counter() - t0:.3f}s"
+        f"{time.perf_counter() - t0:.3f}s",
+        file=sys.stderr,
     )
 
     t1 = time.perf_counter()
@@ -94,7 +96,8 @@ def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
 
     print(
         f"[TIMING] get_chroma_collection: "
-        f"{time.perf_counter() - t1:.3f}s"
+        f"{time.perf_counter() - t1:.3f}s",
+        file=sys.stderr,
     )
 
     t2 = time.perf_counter()
@@ -106,7 +109,8 @@ def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
 
     print(
         f"[TIMING] embedding_query: "
-        f"{time.perf_counter() - t2:.3f}s"
+        f"{time.perf_counter() - t2:.3f}s",
+        file=sys.stderr,
     )
 
     t3 = time.perf_counter()
@@ -118,7 +122,8 @@ def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
 
     print(
         f"[TIMING] chroma_query: "
-        f"{time.perf_counter() - t3:.3f}s"
+        f"{time.perf_counter() - t3:.3f}s",
+        file=sys.stderr,
     )
 
     return format_results(results)
