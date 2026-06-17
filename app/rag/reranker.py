@@ -20,7 +20,7 @@ def load_reranker_model() -> CrossEncoder:
 
 def deduplicate_results(
     results: list[dict],
-    max_per_page: int = 1,
+    max_per_page: int = 2,
 ) -> list[dict]:
     """
     Removes duplicate or near-duplicate results from the same source/page.
@@ -83,7 +83,7 @@ def rerank_results(
 
     deduplicated_results = deduplicate_results(
         results=reranked_results,
-        max_per_page=1,
+        max_per_page=2,
     )
 
     return deduplicated_results[:top_k]
