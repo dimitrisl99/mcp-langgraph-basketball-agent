@@ -4,6 +4,7 @@ import chromadb
 import time
 import sys
 
+from app.rag.reranker import rerank_results
 from sentence_transformers import SentenceTransformer
 
 
@@ -115,9 +116,11 @@ def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
 
     t3 = time.perf_counter()
 
+    candidate_k = max(top_k * 4, 20)
+
     results = collection.query(
         query_embeddings=[query_embedding.tolist()],
-        n_results=top_k,
+        n_results=candidate_k,
     )
 
     print(
@@ -126,7 +129,23 @@ def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
         file=sys.stderr,
     )
 
-    return format_results(results)
+    formatted_results = format_results(results)
+
+    t4 = time.perf_counter()
+
+    reranked_results = rerank_results(
+        query=query,
+        results=formatted_results,
+        top_k=top_k,
+    )
+
+    print(
+        f"[TIMING] rerank_results: "
+        f"{time.perf_counter() - t4:.3f}s",
+        file=sys.stderr,
+    )
+
+    return reranked_results
 
 
 
