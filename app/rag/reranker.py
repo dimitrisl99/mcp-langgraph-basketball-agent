@@ -18,6 +18,31 @@ def load_reranker_model() -> CrossEncoder:
 
     return _reranker_model
 
+def deduplicate_results(
+    results: list[dict],
+    max_per_page: int = 1,
+) -> list[dict]:
+    """
+    Removes duplicate or near-duplicate results from the same source/page.
+    Keeps only the highest-ranked result per PDF page.
+    """
+
+    seen_pages = {}
+    deduplicated = []
+
+    for result in results:
+        key = (
+            result["source"],
+            result["page"],
+        )
+
+        current_count = seen_pages.get(key, 0)
+
+        if current_count < max_per_page:
+            deduplicated.append(result)
+            seen_pages[key] = current_count + 1
+
+    return deduplicated
 
 def rerank_results(
     query: str,
@@ -56,4 +81,9 @@ def rerank_results(
         reverse=True,
     )
 
-    return reranked_results[:top_k]
+    deduplicated_results = deduplicate_results(
+        results=reranked_results,
+        max_per_page=1,
+    )
+
+    return deduplicated_results[:top_k]
