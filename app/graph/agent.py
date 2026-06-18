@@ -340,6 +340,37 @@ def run_agent(
         "timings": final_state["timings"],
     }
 
+def prepare_agent_request(
+    question: str,
+    chat_history: list[dict] | None = None,
+) -> dict:
+    """
+    Runs only rewrite + router.
+    Used by the UI before streaming the final answer.
+    """
+
+    if chat_history is None:
+        chat_history = []
+
+    state = {
+        "question": question,
+        "standalone_question": "",
+        "chat_history": chat_history,
+        "route": "",
+        "answer": "",
+        "sources": [],
+        "timings": {},
+    }
+
+    state = rewrite_question(state)
+    state = route_question(state)
+
+    return {
+        "question": question,
+        "standalone_question": state["standalone_question"],
+        "route": state["route"],
+        "timings": state["timings"],
+    }
 
 if __name__ == "__main__":
     chat_history = []

@@ -2,42 +2,7 @@
   "total_questions": 6,
   "top_k": 5,
   "hit_at_k": 1.0,
-  "text_hit_at_k": 0.667,
+  "text_hit_at_k": 1.0,
   "mrr": 1.0,
-  "failed_cases": [
-    {
-      "question": "How does Spain Pick and Roll work?",
-      "expected_sources": [
-        "Sergio-Scariolo-Spain-Pick-and-Roll.pdf"
-      ],
-      "expected_text_contains": [
-        "Spain PNR"
-      ],
-      "retrieved_sources": [
-        "Sergio-Scariolo-Spain-Pick-and-Roll.pdf",
-        "5-out-motion-offense-2017.pdf",
-        "5-out-motion-offense-2017.pdf",
-        "Spain-National-Team-Playbook.pdf",
-        "Spain-National-Team-Playbook.pdf"
-      ],
-      "top_result_preview": "wwwbasketballimmersion.com Noted compiled by Alex Sarama Sergio Scariolo Spain Pick and Roll"
-    },
-    {
-      "question": "What are the advantages of Spain Pick and Roll?",
-      "expected_sources": [
-        "Sergio-Scariolo-Spain-Pick-and-Roll.pdf"
-      ],
-      "expected_text_contains": [
-        "create more space"
-      ],
-      "retrieved_sources": [
-        "Sergio-Scariolo-Spain-Pick-and-Roll.pdf",
-        "5-out-motion-offense-2017.pdf",
-        "Spain-National-Team-Playbook.pdf",
-        "Spain-National-Team-Playbook.pdf",
-        "THE COMPLETE BOOK flex offense.pdf"
-      ],
-      "top_result_preview": "wwwbasketballimmersion.com Noted compiled by Alex Sarama Sergio Scariolo Spain Pick and Roll"
-    }
-  ]
+  "failed_cases": []
 }

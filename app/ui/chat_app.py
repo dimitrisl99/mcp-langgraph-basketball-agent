@@ -7,7 +7,7 @@ sys.path.append(str(project_root))
 
 import streamlit as st
 
-from app.graph.agent import run_agent
+from app.graph.agent import run_agent, prepare_agent_request
 
 from app.ui.conversation_manager import (
     load_conversations,
@@ -18,6 +18,10 @@ from app.ui.conversation_manager import (
     rename_conversation,
 )
 
+from app.rag.streaming_answer_generator import (
+    prepare_streaming_rag_answer,
+    stream_ollama_answer,
+)
 
 st.set_page_config(
     page_title="MCP Basketball Assistant",
@@ -308,32 +312,64 @@ if prompt:
 
         with st.spinner("Thinking..."):
 
-            result = run_agent(
+            plan = prepare_agent_request(
                 question=prompt,
                 chat_history=st.session_state.chat_history,
             )
 
-            answer = result["answer"]
-            route = result["route"]
-            standalone_question = result["standalone_question"]
-            sources = result.get("sources", [])
+            route = plan["route"]
+            standalone_question = plan["standalone_question"]
+
+            message_placeholder = st.empty()
+
+            answer = ""
+            sources = []
+            timings = plan.get("timings", {})
+
+            if route == "RAG":
+                rag_payload = prepare_streaming_rag_answer(
+                    question=standalone_question,
+                    top_k=5,
+                )
+
+                sources = rag_payload["sources"]
+
+                for step, value in rag_payload.get("rag_timings", {}).items():
+                    timings[f"rag_{step}"] = value
+
+                generation_start = time.perf_counter()
+
+                for token in stream_ollama_answer(rag_payload["prompt"]):
+                    answer += token
+                    message_placeholder.markdown(answer)
+
+                timings["rag_ollama_generation"] = round(
+                    time.perf_counter() - generation_start,
+                    3,
+                )
+
+            else:
+                result = run_agent(
+                    question=prompt,
+                    chat_history=st.session_state.chat_history,
+                )
+
+                answer = result["answer"]
+                sources = result.get("sources", [])
+                timings = result.get("timings", {})
+
+                message_placeholder.markdown(answer)
 
             st.session_state.last_agent_info = {
                 "route": route,
                 "standalone_question": standalone_question,
                 "sources_count": len(sources),
                 "model": "qwen3:8b",
-                "timings": result.get("timings", {}),
+                "timings": timings,
             }
 
             message_placeholder = st.empty()
 
-            displayed_answer = ""
-
-            for word in answer.split():
-                displayed_answer += word + " "
-                message_placeholder.markdown(displayed_answer)
-                time.sleep(0.02)
             if sources:
                 with st.expander("📚 Sources"):
                     for index, source in enumerate(sources, start=1):
