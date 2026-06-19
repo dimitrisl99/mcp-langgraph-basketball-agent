@@ -85,16 +85,37 @@ def load_pdf_with_ocr(pdf_path: Path, reader: easyocr.Reader) -> list[dict]:
 def load_playbooks_with_ocr(playbooks_dir: Path) -> list[dict]:
     """
     Loads all PDFs from the playbooks folder using OCR.
+    Skips PDFs that already exist in data/processed/ocr_documents.json.
     """
+
+    project_root = Path(__file__).parents[2]
+    processed_dir = project_root / "data" / "processed"
+    output_path = processed_dir / "ocr_documents.json"
+
+    existing_documents = []
+
+    if output_path.exists():
+        with output_path.open("r", encoding="utf-8") as f:
+            existing_documents = json.load(f)
+
+    already_processed_sources = {
+        document["source"]
+        for document in existing_documents
+    }
 
     reader = easyocr.Reader(["en"], gpu=True)
 
-    all_documents = []
+    all_documents = existing_documents.copy()
 
     pdf_files = sorted(playbooks_dir.glob("*.pdf"))
 
     for pdf_path in pdf_files:
-        print(f"\nProcessing PDF: {pdf_path.name}")
+
+        if pdf_path.name in already_processed_sources:
+            print(f"Skipping already processed PDF: {pdf_path.name}")
+            continue
+
+        print(f"\nProcessing new PDF: {pdf_path.name}")
 
         pdf_documents = load_pdf_with_ocr(pdf_path, reader)
         all_documents.extend(pdf_documents)
