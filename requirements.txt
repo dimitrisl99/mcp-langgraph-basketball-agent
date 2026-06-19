@@ -11,3 +11,4 @@ pandas
 nba_api
 langgraph
 streamlit
+rank-bm25

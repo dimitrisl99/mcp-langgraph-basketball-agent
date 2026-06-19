@@ -126,10 +126,17 @@ def evaluate_retrieval(
         print("----------------------------------------")
 
         for index, result in enumerate(retrieved_results, start=1):
+            distance = result.get("distance")
+
+            if distance is None:
+                distance_text = "N/A"
+            else:
+                distance_text = f"{distance:.4f}"
+
             print(
                 f"{index}. {result['source']} "
                 f"| page {result['page']} "
-                f"| distance {result['distance']:.4f}"
+                f"| distance {distance_text}"
             )
 
         print(f"Source Hit: {has_source_hit}")

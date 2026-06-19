@@ -5,6 +5,7 @@ import time
 import sys
 
 from app.rag.reranker import rerank_results
+from app.rag.bm25_retriever import search_bm25
 from sentence_transformers import SentenceTransformer
 
 
@@ -76,6 +77,33 @@ def format_results(results: dict) -> list[dict]:
     return formatted
 
 
+def merge_retrieval_results(
+    vector_results: list[dict],
+    bm25_results: list[dict],
+) -> list[dict]:
+    """
+    Merges vector and BM25 results.
+    Removes exact duplicate chunks.
+    """
+
+    merged = []
+    seen = set()
+
+    for result in vector_results + bm25_results:
+
+        key = (
+            result["source"],
+            result["page"],
+            result["chunk_index"],
+        )
+
+        if key not in seen:
+            merged.append(result)
+            seen.add(key)
+
+    return merged
+
+
 def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
     """
     Searches basketball playbook chunks using semantic similarity.
@@ -129,13 +157,31 @@ def search_playbooks(query: str, top_k: int = 5) -> list[dict]:
         file=sys.stderr,
     )
 
-    formatted_results = format_results(results)
+    formatted_vector_results = format_results(results)
+
+    t_bm25 = time.perf_counter()
+
+    bm25_results = search_bm25(
+        query=query,
+        top_k=candidate_k,
+    )
+
+    print(
+        f"[TIMING] bm25_query: "
+        f"{time.perf_counter() - t_bm25:.3f}s",
+        file=sys.stderr,
+    )
+
+    merged_results = merge_retrieval_results(
+        vector_results=formatted_vector_results,
+        bm25_results=bm25_results,
+    )
 
     t4 = time.perf_counter()
 
     reranked_results = rerank_results(
         query=query,
-        results=formatted_results,
+        results=merged_results,
         top_k=top_k,
     )
 
