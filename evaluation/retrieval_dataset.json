@@ -52,5 +52,77 @@
     "expected_text_contains": [
       "Motion Offense"
     ]
+  },
+  {
+    "question": "What is a DHO in basketball?",
+    "expected_sources": [
+      "basketball terminology and actions.pdf"
+    ],
+    "expected_text_contains": [
+      "DHO"
+    ]
+  },
+  {
+    "question": "What is a Horns offense?",
+    "expected_sources": [
+      "Duke-Playbook.pdf"
+    ],
+    "expected_text_contains": [
+      "Horns"
+    ]
+  },
+  {
+    "question": "Explain a zipper cut.",
+    "expected_sources": [
+      "basketball terminology and actions.pdf"
+    ],
+    "expected_text_contains": [
+      "Zipper"
+    ]
+  },
+  {
+    "question": "What is a UCLA cut?",
+    "expected_sources": [
+      "basketball terminology and actions.pdf"
+    ],
+    "expected_text_contains": [
+      "UCLA"
+    ]
+  },
+  {
+    "question": "What is a flare screen?",
+    "expected_sources": [
+      "basketball terminology and actions.pdf"
+    ],
+    "expected_text_contains": [
+      "Flare"
+    ]
+  },
+  {
+    "question": "What is a hammer action?",
+    "expected_sources": [
+      "basketball terminology and actions.pdf"
+    ],
+    "expected_text_contains": [
+      "Hammer"
+    ]
+  },
+  {
+    "question": "Explain baseline out of bounds plays.",
+    "expected_sources": [
+      "Duke-Playbook.pdf"
+    ],
+    "expected_text_contains": [
+      "BLOB"
+    ]
+  },
+  {
+    "question": "How can set plays create scoring opportunities?",
+    "expected_sources": [
+      "BreakthroughPlays.pdf"
+    ],
+    "expected_text_contains": [
+      "play"
+    ]
   }
 ]
