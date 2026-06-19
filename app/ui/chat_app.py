@@ -17,10 +17,7 @@ from app.ui.conversation_manager import (
     rename_conversation,
 )
 
-from app.graph.agent import (
-    run_agent,
-    prepare_agent_request,
-)
+from app.graph.agent import run_agent
 
 st.set_page_config(
     page_title="MCP Basketball Assistant",
@@ -313,45 +310,19 @@ if prompt:
 
         with st.spinner("Thinking..."):
 
-            plan = prepare_agent_request(
+            result = run_agent(
                 question=prompt,
                 chat_history=st.session_state.chat_history,
             )
 
-            route = plan["route"]
-            standalone_question = plan["standalone_question"]
+            answer = result["answer"]
+            route = result["route"]
+            standalone_question = result["standalone_question"]
+            sources = result.get("sources", [])
+            timings = result.get("timings", {})
 
             message_placeholder = st.empty()
-
-            answer = ""
-            sources = []
-            timings = plan.get("timings", {})
-
-            if route == "RAG":
-
-                result = run_agent(
-                    question=prompt,
-                    chat_history=st.session_state.chat_history,
-                )
-
-                answer = result["answer"]
-                sources = result.get("sources", [])
-                timings = result.get("timings", {})
-
-                message_placeholder.markdown(answer)
-
-            else:
-
-                result = run_agent(
-                    question=prompt,
-                    chat_history=st.session_state.chat_history,
-                )
-
-                answer = result["answer"]
-                sources = result.get("sources", [])
-                timings = result.get("timings", {})
-
-                message_placeholder.markdown(answer)
+            message_placeholder.markdown(answer)
 
             st.session_state.last_agent_info = {
                 "route": route,
