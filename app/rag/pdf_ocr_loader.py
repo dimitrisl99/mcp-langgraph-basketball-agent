@@ -1,23 +1,23 @@
 from pathlib import Path
 
-import fitz  # PyMuPDF
-import easyocr # OCR engine
-import numpy as np # Το EasyOCR θέλει numpy arrays
-import json # για την αποθήκευση
-from PIL import Image # Για να μετατρέψουμε PDF pages σε PIL images
+import fitz
+import easyocr
+import numpy as np
+import json
+from PIL import Image
 
-#πάρε μια pdf σελίδα και κάνε την εικόνα
+
 def render_page_to_image(page, zoom: float = 3.0) -> Image.Image:
     """
     Converts a PDF page into a PIL image.
     OCR works on images, not directly on PDF pages.
     So first we render each PDF page as an image.
     """
-    #Το zoom είναι η ανάλυση zoom=1 χαμηλή ανάλυση, 2 καλύτερη ποιότητα, 3 ακόμα καλύτερη)
-    matrix = fitz.Matrix(zoom, zoom)
-    pixmap = page.get_pixmap(matrix=matrix) #εδώ γίνεται το render PDF page --> Image
 
-    #μετατρέπουμε το pixmap σε PIL Image
+    matrix = fitz.Matrix(zoom, zoom)
+    pixmap = page.get_pixmap(matrix=matrix)
+
+
     image = Image.frombytes(
         "RGB",
         [pixmap.width, pixmap.height],
@@ -26,7 +26,7 @@ def render_page_to_image(page, zoom: float = 3.0) -> Image.Image:
 
     return image
 
-#παίρνει reader(EasyOCR model) + image
+#take reader(EasyOCR model) + image
 def ocr_image(reader: easyocr.Reader, image: Image.Image) -> str:
     """
     Runs OCR on a PIL image and returns extracted text.
@@ -34,11 +34,11 @@ def ocr_image(reader: easyocr.Reader, image: Image.Image) -> str:
 
     image_array = np.array(image) #μετατρέπει το PIL image --> Numpy Array
 
-    # SOS γραμμή --> εδώ γινεται το OCR
+
     results = reader.readtext(
         image_array,
-        detail=0, #σημαίνει δεν θέλω coordinates, bounding boxes, αλλά μόνο κείμενο)
-        paragraph=True #ζητάμε να ενώσει γραμμές σε παραγράφους
+        detail=0,
+        paragraph=True
     )
 
     text = "\n".join(results)
@@ -46,7 +46,7 @@ def ocr_image(reader: easyocr.Reader, image: Image.Image) -> str:
     return text.strip()
 
 
-#Ανοίγει όλοκληρο το pdf
+#open the whole pdf
 def load_pdf_with_ocr(pdf_path: Path, reader: easyocr.Reader) -> list[dict]:
     """
     Loads one PDF and extracts text from every page using OCR.
@@ -57,15 +57,14 @@ def load_pdf_with_ocr(pdf_path: Path, reader: easyocr.Reader) -> list[dict]:
 
     documents = []
 
-    pdf_document = fitz.open(pdf_path) #άνοιγμα pdf
+    pdf_document = fitz.open(pdf_path)
 
-    for page_index in range(len(pdf_document)): #για κάθε σελίδα, την κάνουμε εικόνα και μετά κείμενο
+    for page_index in range(len(pdf_document)):
         page = pdf_document[page_index]
 
         image = render_page_to_image(page)
         text = ocr_image(reader, image)
 
-        #εδώ αποθηκεύουμε το αποτέλεσμα
         documents.append(
             {
                 "text": text,
@@ -129,7 +128,7 @@ if __name__ == "__main__":
 
     documents = load_playbooks_with_ocr(playbooks_dir)
 
-    #αποθήκευση
+    #save
     processed_dir = project_root / "data" / "processed"
     processed_dir.mkdir(parents=True, exist_ok=True)
 

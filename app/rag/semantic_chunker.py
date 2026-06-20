@@ -1,15 +1,13 @@
-import json  # για να διαβάζουμε/γράφουμε JSON αρχεία
-import re  # για καθάρισμα κειμένου
+import json
+import re
 from pathlib import Path
 
-from sentence_transformers import SentenceTransformer  # μετατρέπει προτάσεις σε embeddings/διανύσματα
-from sklearn.metrics.pairwise import cosine_similarity  # μετράει πόσο κοντά είναι νοηματικά 2 προτάσεις
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 def clean_text(text: str) -> str:
-    """
-    Καθαρίζει το OCR text από περιττά κενά και περίεργες αλλαγές γραμμών.
-    """
+
     text = text.replace("\r", "\n")
     text = re.sub(r"\n{3,}", "\n\n", text)
     text = re.sub(r"[ \t]+", " ", text)
@@ -17,10 +15,7 @@ def clean_text(text: str) -> str:
 
 
 def split_into_sentences(text: str) -> list[str]:
-    """
-    Σπάει το κείμενο σε μικρές νοηματικές μονάδες.
-    Για OCR playbooks κρατάμε και line-based λογική, γιατί συχνά οι προτάσεις δεν είναι τέλειες.
-    """
+
     lines = [line.strip() for line in text.split("\n") if line.strip()]
 
     sentences = []
@@ -44,18 +39,6 @@ def semantic_chunk_document(
     min_chunk_chars: int = 250,
     max_chunk_chars: int = 1200,
 ) -> list[dict]:
-    """
-    Κάνει semantic chunking σε μία σελίδα/document.
-
-    Λογική:
-    1. Καθαρίζει το OCR text.
-    2. Το σπάει σε προτάσεις/μονάδες.
-    3. Φτιάχνει embeddings για κάθε πρόταση.
-    4. Συγκρίνει κάθε πρόταση με την προηγούμενη.
-    5. Αν μοιάζουν νοηματικά, τις βάζει στο ίδιο chunk.
-    6. Αν αλλάζει το νόημα ή μεγαλώνει πολύ το chunk, ξεκινά νέο chunk.
-    7. Ενώνει πολύ μικρά chunks με το προηγούμενο.
-    """
 
     text = clean_text(document["text"])
     sentences = split_into_sentences(text)
@@ -68,7 +51,7 @@ def semantic_chunk_document(
     chunks = []
     current_chunk_sentences = [sentences[0]]
 
-    # Σύγκριση κάθε πρότασης με την προηγούμενη
+
     for i in range(1, len(sentences)):
         previous_embedding = embeddings[i - 1].reshape(1, -1)
         current_embedding = embeddings[i].reshape(1, -1)
@@ -92,7 +75,6 @@ def semantic_chunk_document(
     if current_chunk_sentences:
         chunks.append(" ".join(current_chunk_sentences))
 
-    # Ενώνουμε πολύ μικρά chunks με το προηγούμενο, για να μη μένουν μόνα τους άχρηστα fragments
     merged_chunks = []
 
     for chunk in chunks:
@@ -125,9 +107,7 @@ def semantic_chunk_document(
 
 
 def semantic_chunk_documents(documents: list[dict]) -> list[dict]:
-    """
-    Κάνει semantic chunking σε όλα τα OCR documents.
-    """
+
     model = SentenceTransformer("all-MiniLM-L6-v2")
 
     all_chunks = []

@@ -215,15 +215,6 @@ if __name__ == "__main__":
             print(f"Distance: {result['distance']}")
             print(result["text"][:800])
 
-"""
-Η τελευταία αλλαγή ουσιαστικά είναι οτι απο εκεί που το σύστημα πριν λειτουργούσε έτσι: 
-search_playbooks() --> load model --> load Chroma --> search 
 
-Τώρα ουσιαστικά γίνεται: 
-first search_playbooks() --> load model once --> load Chroma once --> search 
-second search_playbooks() --> reuse same model --> reuse same Chroma collection --> search 
-
-H ουσιαστική αλλαγή είναι οτι τώρα φορτώνει το model και την chroma μόνο μία φορά 
-"""
 
 

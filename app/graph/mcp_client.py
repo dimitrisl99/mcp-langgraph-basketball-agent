@@ -1,10 +1,3 @@
-"""
-Persistent MCP client.
-
-Instead of starting a new MCP server process on every tool call,
-this keeps one MCP server/session alive for the lifetime of the app process.
-"""
-
 import asyncio
 import atexit
 import json

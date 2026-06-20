@@ -31,7 +31,7 @@ def fetch_player_stats() -> pd.DataFrame:
 
     return df
 
-#Κρατάμε μόνο τις στήλες που θέλουμε
+#keep some columns
 def keep_relevant_columns(df: pd.DataFrame) -> pd.DataFrame:
 
     columns = [
@@ -60,7 +60,7 @@ def save_to_sqlite(df: pd.DataFrame, db_path: Path) -> None:
 
     connection = sqlite3.connect(db_path)
 
-    df.to_sql( #γράφει τον πίνακα μέσα στο data/nba_stats.db
+    df.to_sql(
         "player_stats",
         connection,
         if_exists="replace",

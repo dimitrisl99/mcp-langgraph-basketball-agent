@@ -26,7 +26,7 @@ def format_context(results: list[dict]) -> str:
 
 def generate_basketball_answer(question: str, top_k: int = 5) -> dict:
     """
-    Retrieves relevant playbook chunks and asks a local Ollama model
+    Retrieves relevant playbook chunks and asks qwen3:8b model
     to generate a grounded basketball coaching answer.
     """
 

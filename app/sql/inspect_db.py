@@ -1,9 +1,9 @@
 """
-Ελέγχουμε 3 πράγματα:
-
-- Ποιά tables υπάρχουν
-- Τι columns_name έχει το players_stats
-- Αν δουλεύει ένα κανονικό SQL query
+We will check 3 things
+- which columns we have
+- Which tables
+- What columns_name, players_stats has
+- If SQL query works
 """
 
 import sqlite3

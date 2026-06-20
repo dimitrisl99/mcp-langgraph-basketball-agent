@@ -35,10 +35,10 @@ def prepare_documents(chunks: list[dict]) -> tuple[list[str], list[str], list[di
         documents.append(text)
 
         ids.append(
-            f"{chunk['source']}_page_{chunk['page']}_chunk_{chunk['chunk_index']}_{index}" #κάθε chunk πρέπει να έχει unique id
+            f"{chunk['source']}_page_{chunk['page']}_chunk_{chunk['chunk_index']}_{index}" #every chunk should have a unique id
         )
 
-        #κρατάει metadata
+        #keep metadata
         metadatas.append(
             {
                 "source": chunk["source"],
@@ -90,8 +90,7 @@ def build_chroma_index(
 if __name__ == "__main__":
     project_root = Path(__file__).parents[2]
 
-    chunks_path = project_root / "data" / "processed" / "semantic_chunks.json" #παίρνει τα chunks που φτιάξαμε
-    #απο OCR + semantic chunking
+    chunks_path = project_root / "data" / "processed" / "semantic_chunks.json"
 
     chroma_path = project_root / "data" / "chroma"
 

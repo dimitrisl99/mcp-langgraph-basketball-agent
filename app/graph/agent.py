@@ -1,12 +1,11 @@
 """
-Έχουμε 3 nodes:
+We have 3 nodes:
 i) Router
 ii) Rag
 iii) SQL
-
-Ο Router αποφασίζει αν η ερώτηση είναι RAG ή SQL
-π.χ. αν η ερώτηση είναι How does Spain Pick and Roll work? --> RAG
-ενώ αν είναι Who are the top 5 players by assists? --> SQL
+Router decides if questions is RAG or SQL
+e.g. if the Q is "How does Spain Pick and Roll work?" --> Rag
+or if the Q is "Who are the top 5 players by assists?" --> SQL
 """
 
 from typing import TypedDict, Literal

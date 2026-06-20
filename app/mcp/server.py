@@ -4,7 +4,7 @@ from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP #FastMCP --> easy way to create MCP server
 
-PROJECT_ROOT = Path(__file__).parents[2] #πρόσβαση στο root του project
+PROJECT_ROOT = Path(__file__).parents[2]
 sys.path.append(str(PROJECT_ROOT))
 
 from app.rag.retriever import search_playbooks #import retriever
@@ -18,18 +18,7 @@ mcp = FastMCP("MCP RAG SQL Chatbot Server") # " " the name of the server
 
 
 @mcp.tool() #decorator --> next function ->  become MCP tool
-def get_company_info(topic: str) -> str: # Παίρνει string και επιστρέφει string π.χ. products
-    """
-    Simple demo tool.
-
-    Args:
-        topic: The topic we want information about.
-               Available values: products, customers, faq
-
-    Returns:
-        A text answer with basic company information.
-    """
-
+def get_company_info(topic: str) -> str:
     company_data = {
         "products": (
             "Η εταιρεία διαθέτει προϊόντα σφολιάτας, πίτες, "
@@ -46,22 +35,16 @@ def get_company_info(topic: str) -> str: # Παίρνει string και επισ
     }
 
     #clean user's input
-    clean_topic = topic.lower().strip() #τα κάνει πεζά + βγάζει κενά απο αρχή και τέλος
-
-    #Αν υπάρχει το αντίστοιχο topic μέσα στο dictionary (π.χ. είναι product, customers, faq) επιστρέφουμε
-    #αντίστοιχη πληροφορία
+    clean_topic = topic.lower().strip()
 
     if clean_topic in company_data:
         return company_data[clean_topic]
 
-    #Αν δεν υπάρχει το topic επιστρέφουμε fallback μήνυμα
     return (
         "Δεν βρέθηκε πληροφορία για αυτό το topic. "
         "Δοκίμασε ένα από τα: products, customers, faq."
     )
 
-#κάνουμε αυτή την function διαθέσιμη ως MCP tool
-#Πλέον ο MCP agent θα μπορεί να καλέσει search_basketball_playbooks
 @mcp.tool()
 def search_basketball_playbooks(query: str, top_k: int = 5) -> str:
     """
@@ -75,7 +58,7 @@ def search_basketball_playbooks(query: str, top_k: int = 5) -> str:
         A formatted text response with relevant playbook chunks and sources.
     """
 
-    results = search_playbooks(query=query, top_k=top_k) #καλούμε rag retriever
+    results = search_playbooks(query=query, top_k=top_k) #call rag retriever
 
     if not results:
         return "Δεν βρέθηκαν σχετικά αποτελέσματα στα playbooks."
@@ -131,6 +114,5 @@ def answer_nba_stats_question(question: str) -> str:
 
     return answer
 
-#Αν τρέχω αυτό το αρχείο απευθείας, τότε κάνε το παρακάτω :
 if __name__ == "__main__":
     mcp.run()
