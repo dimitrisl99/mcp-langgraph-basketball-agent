@@ -17,34 +17,6 @@ from app.sql.text_to_sql import answer_sql_question #import text-to-sql
 mcp = FastMCP("MCP RAG SQL Chatbot Server") # " " the name of the server
 
 
-@mcp.tool() #decorator --> next function ->  become MCP tool
-def get_company_info(topic: str) -> str:
-    company_data = {
-        "products": (
-            "Η εταιρεία διαθέτει προϊόντα σφολιάτας, πίτες, "
-            "κρουασάν, vegan επιλογές και κατεψυγμένα αρτοσκευάσματα."
-        ),
-        "customers": (
-            "Οι βασικοί πελάτες περιλαμβάνουν supermarkets, "
-            "HoReCa συνεργάτες και σημεία λιανικής."
-        ),
-        "faq": (
-            "Οι συχνές ερωτήσεις αφορούν οδηγίες ψησίματος, "
-            "αποθήκευση προϊόντων και διαθέσιμους κωδικούς ανά πελάτη."
-        ),
-    }
-
-    #clean user's input
-    clean_topic = topic.lower().strip()
-
-    if clean_topic in company_data:
-        return company_data[clean_topic]
-
-    return (
-        "Δεν βρέθηκε πληροφορία για αυτό το topic. "
-        "Δοκίμασε ένα από τα: products, customers, faq."
-    )
-
 @mcp.tool()
 def search_basketball_playbooks(query: str, top_k: int = 5) -> str:
     """
