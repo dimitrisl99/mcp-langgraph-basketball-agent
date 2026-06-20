@@ -28,6 +28,35 @@ st.set_page_config(
     layout="wide",
 )
 
+def render_sources(sources: list[dict], key_prefix: str) -> None:
+    if not sources:
+        return
+
+    with st.expander("📚 Sources"):
+        for index, source in enumerate(sources, start=1):
+            st.markdown(f"### {source['label']}")
+            st.markdown(f"**File:** {source['file']}")
+            st.markdown(f"**Page:** {source['page']}")
+
+            pdf_path = Path(source["file_path"])
+
+            if pdf_path.exists():
+                with pdf_path.open("rb") as pdf_file:
+                    st.download_button(
+                        label=f"📄 Open / Download {source['file']}",
+                        data=pdf_file,
+                        file_name=source["file"],
+                        mime="application/pdf",
+                        key=f"{key_prefix}_download_{index}_{source['file']}_{source['page']}",
+                    )
+            else:
+                st.warning("PDF file not found locally.")
+
+            with st.expander("Retrieved text preview"):
+                st.write(source["text"])
+
+            st.divider()
+
 @st.cache_resource(show_spinner=False)
 def cached_warmup():
     return warmup_system()
@@ -241,29 +270,7 @@ for message in st.session_state.messages:
 
         sources = message.get("sources", [])
 
-        if sources:
-            with st.expander("📚 Sources"):
-                for index, source in enumerate(sources, start=1):
-                    st.markdown(f"### {source['label']}")
-                    st.markdown(f"**File:** {source['file']}")
-                    st.markdown(f"**Page:** {source['page']}")
-
-                    pdf_path = Path(source["file_path"])
-
-                    if pdf_path.exists():
-                        with pdf_path.open("rb") as pdf_file:
-                            st.download_button(
-                                label=f"📄 Open / Download {source['file']}",
-                                data=pdf_file,
-                                file_name=source["file"],
-                                mime="application/pdf",
-                                key=f"history_download_{index}_{source['file']}_{source['page']}",
-                            )
-
-                    with st.expander("Retrieved text preview"):
-                        st.write(source["text"])
-
-                    st.divider()
+        render_sources(sources, key_prefix="history")
 
 #====================================
 # Suggested Questions
@@ -343,41 +350,7 @@ if prompt:
                 "timings": timings,
             }
 
-
-            if sources:
-                with st.expander("📚 Sources"):
-                    for index, source in enumerate(sources, start=1):
-
-                        st.markdown(
-                            f"### {source['label']}"
-                        )
-
-                        st.markdown(
-                            f"**File:** {source['file']}"
-                        )
-
-                        st.markdown(
-                            f"**Page:** {source['page']}"
-                        )
-
-                        pdf_path = Path(source["file_path"])
-
-                        if pdf_path.exists():
-                            with pdf_path.open("rb") as pdf_file:
-                                st.download_button(
-                                    label=f"📄 Open / Download {source['file']}",
-                                    data=pdf_file,
-                                    file_name=source["file"],
-                                    mime="application/pdf",
-                                    key=f"download_{index}_{source['file']}_{source['page']}",
-                                )
-                        else:
-                            st.warning("PDF file not found locally.")
-
-                        with st.expander("Retrieved text preview"):
-                            st.write(source["text"])
-
-                        st.divider()
+            render_sources(sources, key_prefix="new")
 
     # save assistant response
 

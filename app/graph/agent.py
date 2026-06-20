@@ -302,13 +302,15 @@ def build_graph():
 
     return graph.compile()
 
+AGENT_GRAPH = build_graph()
+
 
 def run_agent(
     question: str,
     chat_history: list[dict] | None = None,
 ) -> dict:
     total_start_time = time.perf_counter()
-    app = build_graph()
+    app = AGENT_GRAPH
 
     if chat_history is None:
         chat_history = []

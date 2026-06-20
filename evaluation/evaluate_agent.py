@@ -116,16 +116,23 @@ def evaluate_agent(dataset):
             failed_cases,
     }
 
+def save_results(results: dict, output_path: Path) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with output_path.open("w", encoding="utf-8") as file:
+        json.dump(results, file, ensure_ascii=False, indent=2)
+
 
 if __name__ == "__main__":
-
     dataset = load_dataset(
-        PROJECT_ROOT
-        / "evaluation"
-        / "end_to_end_dataset.json"
+        PROJECT_ROOT / "evaluation" / "end_to_end_dataset.json"
     )
 
+    output_path = PROJECT_ROOT / "evaluation" / "agent_results.json"  # ← πρόσθεσε
+
     results = evaluate_agent(dataset)
+
+    save_results(results=results, output_path=output_path)
 
     print("\n========================================")
     print("FINAL END-TO-END EVALUATION")
