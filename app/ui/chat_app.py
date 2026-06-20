@@ -2,8 +2,11 @@ import sys
 import time
 from pathlib import Path
 
+
 project_root = Path(__file__).parents[2]
 sys.path.append(str(project_root))
+
+from app.ui.warmup import warmup_system
 
 import streamlit as st
 
@@ -24,6 +27,14 @@ st.set_page_config(
     page_icon="🏀",
     layout="wide",
 )
+
+@st.cache_resource(show_spinner=False)
+def cached_warmup():
+    return warmup_system()
+
+
+with st.spinner("Loading AI models and retrieval index..."):
+    warmup_timings = cached_warmup()
 
 st.title("🏀 MCP Basketball Assistant")
 
