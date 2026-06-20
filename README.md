@@ -553,6 +553,19 @@ streamlit run app/ui/chat_app.py
 
 ---
 
+# Design Decisions
+
+Some notable design choices:
+
+- MCP was used to decouple tools from the agent.
+- Hybrid Search combines semantic and lexical retrieval.
+- Cross-encoder reranking improves retrieval precision.
+- Query rewriting improves multi-turn conversations.
+- Rule-based routing is used before LLM routing to reduce latency and cost.
+- Persistent MCP sessions reduce startup overhead.
+
+---
+
 # Future Improvements
 
 Potential next steps:
@@ -573,3 +586,7 @@ Potential next steps:
 
 This project was built primarily as a learning exercise to understand MCP, LangGraph, Retrieval-Augmented Generation, and modern AI Agent architectures.
 The basketball domain was chosen simply as an interesting and well-scoped knowledge domain for experimentation.
+
+# Author 
+
+Dimitris Loukakis 
