@@ -464,9 +464,8 @@ app/
 ## Clone Repository
 
 ```bash
-git clone https://github.com/dimitrisl99/mcp-basketball-assistant.git
-
-cd mcp-basketball-assistant
+git clone https://github.com/dimitrisl99/mcp-langgraph-basketball-agent.git
+cd mcp-langgraph-basketball-agent
 ```
 
 ## Create Virtual Environment
