@@ -479,7 +479,6 @@ Windows:
 ```bash
 .venv\Scripts\activate
 ```
-
 Linux / Mac:
 
 ```bash
