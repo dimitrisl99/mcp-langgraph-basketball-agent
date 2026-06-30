@@ -8,27 +8,27 @@
     "expected_contains": ["Shai", "Giannis"]
   },
   {
-    "question": "Which player has the best 3-point percentage?",
-    "expected_contains": []
-  },
-  {
     "question": "Who has the most rebounds?",
-    "expected_contains": []
+    "expected_contains": ["Sabonis"]
   },
   {
     "question": "Who has the most blocks?",
-    "expected_contains": []
-  },
-  {
-    "question": "What is Trae Young's points per game?",
-    "expected_contains": ["Trae Young"]
+    "expected_contains": ["Wembanyama"]
   },
   {
     "question": "Which player has the most turnovers?",
-    "expected_contains": []
+    "expected_contains": ["Trae Young"]
   },
   {
-    "question": "Top 3 players by steals?",
-    "expected_contains": []
+    "question": "Who has the most steals?",
+    "expected_contains": ["Dyson Daniels"]
+  },
+  {
+    "question": "What team does Trae Young play for?",
+    "expected_contains": ["Trae Young"]
+  },
+  {
+    "question": "Compare Trae Young and Dyson Daniels by assists.",
+    "expected_contains": ["Trae Young", "Daniels"]
   }
 ]
