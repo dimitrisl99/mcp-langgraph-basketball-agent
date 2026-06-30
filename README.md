@@ -333,6 +333,24 @@ MRR: 0.917
 
 ---
 
+## Text-to-SQL Evaluation 
+
+Keyword-based evaluation checking whether the generated natural language answer contains the expected player names / teams.
+
+```commandline
+Questions: 8
+Correct: 8
+Accuracy: 1.00
+```
+
+Example:
+```commandline
+Question: Who has the most rebounds?
+Answer: Domantas Sabonis has the most rebounds.
+```
+
+--- 
+
 ## Performance
 
 Current Average Timings:
@@ -565,6 +583,14 @@ Some notable design choices:
 
 ---
 
+# Known Limitations
+- Answer generation latency: ~16s per RAG answer, since the local qwen3:8b model runs without GPU-optimized streaming. Streaming was evaluated but rejected because it only improves perceived latency, not actual response time, given the current MCP-based architecture.
+- Text-to-SQL evaluation is keyword-based: it checks whether expected entities (player names, teams) appear in the final answer, but does not validate numeric correctness. A comparison query was found to occasionally mix up which value belongs to which player, which this evaluation method would not catch. A stricter, value-based evaluation is a planned improvement.
+- OCR-based PDF ingestion requires a GPU for reasonable processing speed; on CPU-only machines, building the knowledge base from scratch can be slow.
+- NBA statistics are static, pulled once for a single season (2024-25) and stored in SQLite. The data is not automatically refreshed.
+- No persistence of vector/BM25 indices across schema changes — if the chunking strategy changes, the Chroma DB must be rebuilt from scratch.
+
+---
 # Future Improvements
 
 Potential next steps:
