@@ -1,0 +1,34 @@
+[
+  {
+    "question": "Who has the most assists?",
+    "expected_contains": ["Trae Young"]
+  },
+  {
+    "question": "Who are the top 5 players by points?",
+    "expected_contains": ["Shai", "Giannis"]
+  },
+  {
+    "question": "Which player has the best 3-point percentage?",
+    "expected_contains": []
+  },
+  {
+    "question": "Who has the most rebounds?",
+    "expected_contains": []
+  },
+  {
+    "question": "Who has the most blocks?",
+    "expected_contains": []
+  },
+  {
+    "question": "What is Trae Young's points per game?",
+    "expected_contains": ["Trae Young"]
+  },
+  {
+    "question": "Which player has the most turnovers?",
+    "expected_contains": []
+  },
+  {
+    "question": "Top 3 players by steals?",
+    "expected_contains": []
+  }
+]
